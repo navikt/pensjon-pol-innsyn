@@ -14,14 +14,16 @@ import java.util.List;
 public class Application {
 
     public static void main(String[] args) {
+        String fnr = args.length < 1 ? "01029312345" : args[0];
+
         try {
             List<EntitySupport<?>> entitySupports = List.of(
                     new EntitySupport<>(
-                            new HardcodedBeholdning(),
+                            new DbBeholdningGetter(fnr),
                             new BeholdningDescriptor(),
                             BeholdningRowFiller::setCellValues),
                     new EntitySupport<>(
-                            new HardcodedInntekt(),
+                            new DbInntektGetter(fnr),
                             new InntektDescriptor(),
                             InntektRowFiller::setCellValues),
                     new EntitySupport<>(

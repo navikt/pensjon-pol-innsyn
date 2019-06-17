@@ -1,16 +1,13 @@
 package no.nav.pensjon.innsyn.domain.source;
 
 import no.nav.pensjon.innsyn.domain.Beholdning;
-import no.nav.pensjon.innsyn.source.EntityGetter;
 import no.nav.pensjon.innsyn.source.SourceException;
+import no.nav.pensjon.innsyn.sql.DbEntityGetter;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Function;
 
-public class DbBeholdningGetter implements EntityGetter<Beholdning> {
-
-    private static final String URL = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=docker";
+public class DbBeholdningGetter extends DbEntityGetter<Beholdning> {
 
     private static final String SQL = "   SELECT TO_CHAR(b.DATO_FOM, 'DD.MM.YY')        beholdning_dato_fom,\n" +
             "          TO_CHAR(b.DATO_TOM, 'DD.MM.YY')        beholdning_dato_tom,\n" +
@@ -51,8 +48,8 @@ public class DbBeholdningGetter implements EntityGetter<Beholdning> {
             "LEFT JOIN popp.T_LONN_VEKST_REG r ON r.LONNSVEKST_REG_ID = b.LONNSVEKST_REG_ID\n" +
             "LEFT JOIN popp.T_K_BEHOLDNING_T bt ON bt.K_BEHOLDNING_T = b.K_BEHOLDNING_T\n" +
             "LEFT JOIN popp.T_K_BEHOLDNING_S bs ON bs.K_BEHOLDNING_S = b.K_BEHOLDNING_S\n" +
-            "    WHERE p.fnr_fk = '%s'\n" +
-            " ORDER BY p.fnr_fk, b.DATO_FOM";
+            "    WHERE p.FNR_FK = '%s'\n" +
+            " ORDER BY p.FNR_FK, b.DATO_FOM";
 
     private final String sql;
 
@@ -60,56 +57,50 @@ public class DbBeholdningGetter implements EntityGetter<Beholdning> {
         this.sql = String.format(SQL, fnr);
     }
 
+
     @Override
-    public List<Beholdning> getEntities() {
-        try (Connection connection = DriverManager.getConnection(URL);
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
-            return extractEntitiesFrom(resultSet);
+    public String getSql() {
+        return sql;
+    }
+
+    @Override
+    public Function<ResultSet, Beholdning> getMap() {
+        return DbBeholdningGetter::map;
+    }
+
+    private static Beholdning map(ResultSet source) {
+        try {
+            return new Beholdning(
+                    source.getString("beholdning_dato_fom"),
+                    source.getString("beholdning_dato_tom"),
+                    source.getDouble("beholdning_belop"),
+                    source.getString("beholdning_type"),
+                    source.getString("beholdning_status"),
+                    source.getDouble("beholdning_grlag"),
+                    source.getDouble("beholdning_grlag_avkortet"),
+                    source.getDouble("beholdning_innskudd"),
+                    source.getInt("inntekt_ar"),
+                    source.getDouble("inntekt_belop"),
+                    source.getInt("forstegangstjeneste_ar"),
+                    source.getString("dagpenger_belop_ordinar"),
+                    source.getInt("dagpenger_ar"),
+                    source.getString("dagpenger_belop_fiskere"),
+                    source.getInt("omsorg_ar"),
+                    source.getDouble("omsorg_belop"),
+                    source.getDouble("omsorg_opptj_innskudd"),
+                    source.getDouble("ufore_belop"),
+                    source.getInt("ufore_ar"),
+                    source.getString("ufore_grad"),
+                    source.getString("ufore_yrkesskadegrad"),
+                    source.getString("ufore_antatt_inntekt_yrke"),
+                    source.getString("ufore_yrkesskade"),
+                    source.getString("ufore_uforetrygd"),
+                    source.getInt("ufore_uforear"),
+                    source.getDouble("ufore_antatt_inntekt"),
+                    source.getDouble("regulering_belop"),
+                    source.getString("regulering_dato"));
         } catch (SQLException e) {
-            throw new SourceException("Fetching 'beholdning' entities from DB failed: " + e.getMessage(), e);
+            throw new SourceException("Mapping 'beholdning' from DB result set failed: " + e.getMessage(), e);
         }
-    }
-
-    private static List<Beholdning> extractEntitiesFrom(ResultSet source) throws SQLException {
-        List<Beholdning> entities = new ArrayList<>();
-
-        while (source.next()) {
-            entities.add(map(source));
-        }
-
-        return entities;
-    }
-
-    private static Beholdning map(ResultSet source) throws SQLException {
-        return new Beholdning(
-                source.getString("beholdning_dato_fom"),
-                source.getString("beholdning_dato_tom"),
-                source.getDouble("beholdning_belop"),
-                source.getString("beholdning_type"),
-                source.getString("beholdning_status"),
-                source.getDouble("beholdning_grlag"),
-                source.getDouble("beholdning_grlag_avkortet"),
-                source.getDouble("beholdning_innskudd"),
-                source.getInt("inntekt_ar"),
-                source.getDouble("inntekt_belop"),
-                source.getInt("forstegangstjeneste_ar"),
-                source.getString("dagpenger_belop_ordinar"),
-                source.getInt("dagpenger_ar"),
-                source.getString("dagpenger_belop_fiskere"),
-                source.getInt("omsorg_ar"),
-                source.getDouble("omsorg_belop"),
-                source.getDouble("omsorg_opptj_innskudd"),
-                source.getDouble("ufore_belop"),
-                source.getInt("ufore_ar"),
-                source.getString("ufore_grad"),
-                source.getString("ufore_yrkesskadegrad"),
-                source.getString("ufore_antatt_inntekt_yrke"),
-                source.getString("ufore_yrkesskade"),
-                source.getString("ufore_uforetrygd"),
-                source.getInt("ufore_uforear"),
-                source.getDouble("ufore_antatt_inntekt"),
-                source.getDouble("regulering_belop"),
-                source.getString("regulering_dato"));
     }
 }

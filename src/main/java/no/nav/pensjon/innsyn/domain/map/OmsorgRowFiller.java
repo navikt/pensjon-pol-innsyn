@@ -12,4 +12,7 @@ public class OmsorgRowFiller {
         sink.setCellValue(index++, source.getType());
         sink.setCellValue(index, source.getStatus());
     }
+
+    private OmsorgRowFiller() {
+    }
 }

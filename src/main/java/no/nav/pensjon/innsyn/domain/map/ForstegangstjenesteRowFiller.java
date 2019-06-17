@@ -13,4 +13,7 @@ public class ForstegangstjenesteRowFiller {
         sink.setCellValue(index++, source.getStatus());
         sink.setCellValue(index, source.getKilde());
     }
+
+    private ForstegangstjenesteRowFiller() {
+    }
 }

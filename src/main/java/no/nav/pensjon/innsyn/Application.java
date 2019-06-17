@@ -27,23 +27,23 @@ public class Application {
                             new InntektDescriptor(),
                             InntektRowFiller::setCellValues),
                     new EntitySupport<>(
-                            new HardcodedDagpenger(),
+                            new DbDagpengerGetter(fnr),
                             new DagpengerDescriptor(),
                             DagpengerRowFiller::setCellValues),
                     new EntitySupport<>(
-                            new HardcodedFppAfp(),
+                            new DbFppAfpGetter(fnr),
                             new FppAfpDescriptor(),
                             FppAfpRowFiller::setCellValues),
                     new EntitySupport<>(
-                            new HardcodedOmsorg(),
+                            new DbOmsorgGetter(fnr),
                             new OmsorgDescriptor(),
                             OmsorgRowFiller::setCellValues),
                     new EntitySupport<>(
-                            new HardcodedForstegangstjeneste(),
+                            new DbForstegangstjenesteGetter(fnr),
                             new ForstegangstjenesteDescriptor(),
                             ForstegangstjenesteRowFiller::setCellValues),
                     new EntitySupport<>(
-                            new HardcodedOpptjening(),
+                            new DbOpptjeningGetter(fnr),
                             new OpptjeningDescriptor(),
                             OpptjeningRowFiller::setCellValues));
 

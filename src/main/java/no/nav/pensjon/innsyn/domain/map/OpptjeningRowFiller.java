@@ -12,6 +12,9 @@ public class OpptjeningRowFiller {
         sink.setCellValue(index++, source.getOpptjeningsar());
         sink.setCellValue(index++, source.getPensjonsgivendeInntekt());
         sink.setCellValue(index++, source.getPoeng());
-        sink.setCellValue(index++, source.getUforegrad());
+        sink.setCellValue(index, source.getUforegrad());
+    }
+
+    private OpptjeningRowFiller() {
     }
 }

@@ -17,4 +17,7 @@ public class DagpengerRowFiller {
         sink.setCellValue(index++, source.getType());
         sink.setCellValue(index, source.getRapporttype());
     }
+
+    private DagpengerRowFiller() {
+    }
 }

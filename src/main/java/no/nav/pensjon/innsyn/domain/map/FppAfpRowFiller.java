@@ -14,4 +14,7 @@ public class FppAfpRowFiller {
         sink.setCellValue(index++, source.getAfpPensjonsgrad());
         sink.setCellValue(index, source.getAfpType());
     }
+
+    private FppAfpRowFiller() {
+    }
 }

@@ -14,4 +14,7 @@ public class InntektRowFiller {
         sink.setCellValue(index++, source.getRapportdato());
         sink.setCellValue(index, source.getKilde());
     }
+
+    private InntektRowFiller() {
+    }
 }

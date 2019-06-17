@@ -36,4 +36,7 @@ public class BeholdningRowFiller {
         sink.setCellValue(index++, source.getReguleringBelop());
         sink.setCellValue(index, source.getReguleringDato());
     }
+
+    private BeholdningRowFiller() {
+    }
 }

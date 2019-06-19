@@ -5,6 +5,7 @@ import no.nav.pensjon.innsyn.source.SourceException;
 import no.nav.pensjon.innsyn.sql.DbEntityGetter;
 
 import java.sql.*;
+import java.util.Objects;
 import java.util.function.Function;
 
 public class DbBeholdningGetter extends DbEntityGetter<Beholdning> {
@@ -82,25 +83,29 @@ public class DbBeholdningGetter extends DbEntityGetter<Beholdning> {
                     source.getInt("inntekt_ar"),
                     source.getDouble("inntekt_belop"),
                     source.getInt("forstegangstjeneste_ar"),
-                    source.getString("dagpenger_belop_ordinar"),
+                    source.getDouble("dagpenger_belop_ordinar"),
                     source.getInt("dagpenger_ar"),
-                    source.getString("dagpenger_belop_fiskere"),
+                    source.getDouble("dagpenger_belop_fiskere"),
                     source.getInt("omsorg_ar"),
                     source.getDouble("omsorg_belop"),
                     source.getDouble("omsorg_opptj_innskudd"),
                     source.getDouble("ufore_belop"),
                     source.getInt("ufore_ar"),
-                    source.getString("ufore_grad"),
-                    source.getString("ufore_yrkesskadegrad"),
-                    source.getString("ufore_antatt_inntekt_yrke"),
-                    source.getString("ufore_yrkesskade"),
-                    source.getString("ufore_uforetrygd"),
-                    source.getInt("ufore_uforear"),
+                    source.getDouble("ufore_grad"),
+                    source.getDouble("ufore_yrkesskadegrad"),
+                    source.getDouble("ufore_antatt_inntekt_yrke"),
+                    getBoolean(source, "ufore_yrkesskade"),
+                    getBoolean(source, "ufore_uforetrygd"),
+                    getBoolean(source, "ufore_uforear"),
                     source.getDouble("ufore_antatt_inntekt"),
                     source.getDouble("regulering_belop"),
                     source.getString("regulering_dato"));
         } catch (SQLException e) {
             throw new SourceException("Mapping 'beholdning' from DB result set failed: " + e.getMessage(), e);
         }
+    }
+
+    private static boolean getBoolean(ResultSet source, String column) throws SQLException {
+        return Objects.equals(source.getString(column), "1");
     }
 }

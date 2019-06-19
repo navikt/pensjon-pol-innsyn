@@ -13,20 +13,20 @@ public class Beholdning {
     private final int inntektsar;
     private final double inntektsgrunnlag;
     private final int forstegangstjenesteAr;
-    private final String ordinareDagpenger;
+    private final double ordinareDagpenger;
     private final int dagpengerAr;
-    private final String dagpengerFisker;
+    private final double dagpengerFisker;
     private final int omsorgAr;
     private final double omsorgBelop;
     private final double omsorgInnskudd;
     private final double uforeBelop;
     private final int uforeAr;
-    private final String uforegrad;
-    private final String uforeYrkesskadegrad;
-    private final String uforeAntattInntektYrke;
-    private final String uforeYrkesskade;
-    private final String uforeUforetrygd;
-    private final int uforeUforeAr;
+    private final double uforegrad;
+    private final double uforeYrkesskadegrad;
+    private final double uforeAntattInntektYrke;
+    private final boolean uforeYrkesskade;
+    private final boolean uforeUforetrygd;
+    private final boolean uforeUforeAr;
     private final double uforeAntattInntekt;
     private final double reguleringBelop;
     private final String reguleringDato;
@@ -42,20 +42,20 @@ public class Beholdning {
                       int inntektsar,
                       double inntektsgrunnlag,
                       int forstegangstjenesteAr,
-                      String ordinareDagpenger,
+                      double ordinareDagpenger,
                       int dagpengerAr,
-                      String dagpengerFisker,
+                      double dagpengerFisker,
                       int omsorgAr,
                       double omsorgBelop,
                       double omsorgInnskudd,
                       double uforeBelop,
                       int uforeAr,
-                      String uforegrad,
-                      String uforeYrkesskadegrad,
-                      String uforeAntattInntektYrke,
-                      String uforeYrkesskade,
-                      String uforeUforetrygd,
-                      int uforeUforeAr,
+                      double uforegrad,
+                      double uforeYrkesskadegrad,
+                      double uforeAntattInntektYrke,
+                      boolean uforeYrkesskade,
+                      boolean uforeUforetrygd,
+                      boolean uforeUforeAr,
                       double uforeAntattInntekt,
                       double reguleringBelop,
                       String reguleringDato) {
@@ -133,7 +133,7 @@ public class Beholdning {
         return forstegangstjenesteAr;
     }
 
-    public String getOrdinareDagpenger() {
+    public double getOrdinareDagpenger() {
         return ordinareDagpenger;
     }
 
@@ -141,7 +141,7 @@ public class Beholdning {
         return dagpengerAr;
     }
 
-    public String getDagpengerFisker() {
+    public double getDagpengerFisker() {
         return dagpengerFisker;
     }
 
@@ -165,27 +165,27 @@ public class Beholdning {
         return uforeAr;
     }
 
-    public String getUforegrad() {
+    public double getUforegrad() {
         return uforegrad;
     }
 
-    public String getUforeYrkesskadegrad() {
+    public double getUforeYrkesskadegrad() {
         return uforeYrkesskadegrad;
     }
 
-    public String getUforeAntattInntektYrke() {
+    public double getUforeAntattInntektYrke() {
         return uforeAntattInntektYrke;
     }
 
-    public String getUforeYrkesskade() {
+    public boolean getUforeYrkesskade() {
         return uforeYrkesskade;
     }
 
-    public String getUforeUforetrygd() {
+    public boolean getUforeUforetrygd() {
         return uforeUforetrygd;
     }
 
-    public int getUforeUforeAr() {
+    public boolean getUforeUforeAr() {
         return uforeUforeAr;
     }
 

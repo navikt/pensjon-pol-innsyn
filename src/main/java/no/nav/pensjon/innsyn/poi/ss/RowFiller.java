@@ -18,14 +18,22 @@ public class RowFiller implements CellValueSetter {
         this.row = sheet.createRow(rowIndex);
     }
 
+    @Override
+    public void setCellValue(int cellIndex, boolean value) {
+        row.createCell(cellIndex).setCellValue(value ? "ja" : "nei");
+    }
+
+    @Override
     public void setCellValue(int cellIndex, double value) {
         row.createCell(cellIndex).setCellValue(value);
     }
 
+    @Override
     public void setCellValue(int cellIndex, String value) {
         row.createCell(cellIndex).setCellValue(value);
     }
 
+    @Override
     public void setCellValue(int cellIndex, Date value) {
         createDateCell(cellIndex).setCellValue(value);
     }

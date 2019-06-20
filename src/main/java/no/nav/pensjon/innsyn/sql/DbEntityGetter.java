@@ -10,15 +10,13 @@ import java.util.function.Function;
 
 public abstract class DbEntityGetter<T> implements EntityGetter<T> {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=docker";
-
     public abstract String getSql();
 
     public abstract Function<ResultSet, T> getMap();
 
     @Override
     public List<T> getEntities() {
-        try (Connection connection = DriverManager.getConnection(URL);
+        try (Connection connection = DriverManager.getConnection(DbUrl.getUrlFromEnvironment());
              PreparedStatement statement = connection.prepareStatement(getSql());
              ResultSet resultSet = statement.executeQuery()) {
             return extractEntitiesFrom(resultSet);

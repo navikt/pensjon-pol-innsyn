@@ -25,7 +25,8 @@ public class DbInntektGetter extends DbEntityGetter<Inntekt> {
 
     private final String sql;
 
-    public DbInntektGetter(String fnr) {
+    public DbInntektGetter(String fnr, Connection connection) {
+        super(connection);
         this.sql = String.format(SQL, fnr);
     }
 

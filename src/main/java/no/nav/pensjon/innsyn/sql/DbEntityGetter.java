@@ -10,14 +10,19 @@ import java.util.function.Function;
 
 public abstract class DbEntityGetter<T> implements EntityGetter<T> {
 
+    private final Connection connection;
+
+    protected DbEntityGetter(Connection connection) {
+        this.connection = connection;
+    }
+
     public abstract String getSql();
 
     public abstract Function<ResultSet, T> getMap();
 
     @Override
     public List<T> getEntities() {
-        try (Connection connection = DriverManager.getConnection(DbUrl.getUrlFromEnvironment());
-             PreparedStatement statement = connection.prepareStatement(getSql());
+        try (PreparedStatement statement = connection.prepareStatement(getSql());
              ResultSet resultSet = statement.executeQuery()) {
             return extractEntitiesFrom(resultSet);
         } catch (SQLException e) {

@@ -7,12 +7,10 @@ import java.util.List;
 class DbUrl {
 
     private static final String ENVIRONMENT_VARIABLE_PREFIX = "POPP_";
-    private static final String HOSTNAME = System.getenv(ENVIRONMENT_VARIABLE_PREFIX + "HOSTNAME");
-    private static final String PORT = System.getenv(ENVIRONMENT_VARIABLE_PREFIX + "PORT");
-    private static final String USERNAME = System.getenv(ENVIRONMENT_VARIABLE_PREFIX + "USERNAME");
-    private static final String PASSWORD = System.getenv(ENVIRONMENT_VARIABLE_PREFIX + "PASSWORD");
-    private final String dbmsId;
-    private final String urlFormat;
+    private static final String HOSTNAME = getEnvironmentVariable(ENVIRONMENT_VARIABLE_PREFIX + "HOSTNAME");
+    private static final String PORT = getEnvironmentVariable(ENVIRONMENT_VARIABLE_PREFIX + "PORT");
+    private static final String USERNAME = getEnvironmentVariable(ENVIRONMENT_VARIABLE_PREFIX + "USERNAME");
+    private static final String PASSWORD = getEnvironmentVariable(ENVIRONMENT_VARIABLE_PREFIX + "PASSWORD");
 
     private static final DbUrl ORACLE = new DbUrl("oracle",
             String.format("jdbc:oracle:thin:%s/%s@//%s:%s/%s",
@@ -20,7 +18,7 @@ class DbUrl {
                     PASSWORD,
                     HOSTNAME,
                     PORT,
-                    System.getenv(ENVIRONMENT_VARIABLE_PREFIX + "SERVICENAME")));
+                    getEnvironmentVariable(ENVIRONMENT_VARIABLE_PREFIX + "SERVICENAME")));
 
     private static final DbUrl POSTGRES = new DbUrl("postgres",
             String.format("jdbc:postgresql://%s:%s/postgres?user=%s&password=%s",
@@ -30,6 +28,9 @@ class DbUrl {
                     PASSWORD));
 
     private static final List<DbUrl> URLS = List.of(ORACLE, POSTGRES);
+
+    private final String dbmsId;
+    private final String url;
 
     static String getUrlFromEnvironment() {
         return getUrl(getEnvironmentVariable(ENVIRONMENT_VARIABLE_PREFIX + "DBMS"));
@@ -44,9 +45,9 @@ class DbUrl {
         throw new EnvironmentException("Missing environment variable", name);
     }
 
-    private DbUrl(String dbmsId, String urlFormat) {
+    private DbUrl(String dbmsId, String url) {
         this.dbmsId = dbmsId;
-        this.urlFormat = urlFormat;
+        this.url = url;
     }
 
     private static String getUrl(String dbmsId) {
@@ -55,6 +56,6 @@ class DbUrl {
                 .filter(x -> x.dbmsId.equals(dbmsId.toLowerCase()))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(dbmsId))
-                .urlFormat;
+                .url;
     }
 }

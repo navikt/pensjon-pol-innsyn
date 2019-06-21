@@ -4,6 +4,7 @@ import no.nav.pensjon.innsyn.domain.Forstegangstjeneste;
 import no.nav.pensjon.innsyn.source.SourceException;
 import no.nav.pensjon.innsyn.sql.DbEntityGetter;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.function.Function;
@@ -24,7 +25,8 @@ public class DbForstegangstjenesteGetter extends DbEntityGetter<Forstegangstjene
 
     private final String sql;
 
-    public DbForstegangstjenesteGetter(String fnr) {
+    public DbForstegangstjenesteGetter(String fnr, Connection connection) {
+        super(connection);
         this.sql = String.format(SQL, fnr);
     }
 

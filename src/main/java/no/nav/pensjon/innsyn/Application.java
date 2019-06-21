@@ -7,8 +7,11 @@ import no.nav.pensjon.innsyn.entity.EntitySupport;
 import no.nav.pensjon.innsyn.poi.ss.DataTransferrer;
 import no.nav.pensjon.innsyn.poi.xssf.ExcelWorkbookCreator;
 import no.nav.pensjon.innsyn.sink.FileOutputStreamCreator;
+import no.nav.pensjon.innsyn.sql.DbConnection;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Application {
@@ -16,34 +19,34 @@ public class Application {
     public static void main(String[] args) {
         String fnr = args.length < 1 ? "01029312345" : args[0];
 
-        try {
+        try (Connection connection = DbConnection.get()) {
             List<EntitySupport<?>> entitySupports = List.of(
                     new EntitySupport<>(
-                            new DbBeholdningGetter(fnr),
+                            new DbBeholdningGetter(fnr, connection),
                             new BeholdningDescriptor(),
                             BeholdningRowFiller::setCellValues),
                     new EntitySupport<>(
-                            new DbInntektGetter(fnr),
+                            new DbInntektGetter(fnr, connection),
                             new InntektDescriptor(),
                             InntektRowFiller::setCellValues),
                     new EntitySupport<>(
-                            new DbDagpengerGetter(fnr),
+                            new DbDagpengerGetter(fnr, connection),
                             new DagpengerDescriptor(),
                             DagpengerRowFiller::setCellValues),
                     new EntitySupport<>(
-                            new DbFppAfpGetter(fnr),
+                            new DbFppAfpGetter(fnr, connection),
                             new FppAfpDescriptor(),
                             FppAfpRowFiller::setCellValues),
                     new EntitySupport<>(
-                            new DbOmsorgGetter(fnr),
+                            new DbOmsorgGetter(fnr, connection),
                             new OmsorgDescriptor(),
                             OmsorgRowFiller::setCellValues),
                     new EntitySupport<>(
-                            new DbForstegangstjenesteGetter(fnr),
+                            new DbForstegangstjenesteGetter(fnr, connection),
                             new ForstegangstjenesteDescriptor(),
                             ForstegangstjenesteRowFiller::setCellValues),
                     new EntitySupport<>(
-                            new DbOpptjeningGetter(fnr),
+                            new DbOpptjeningGetter(fnr, connection),
                             new OpptjeningDescriptor(),
                             OpptjeningRowFiller::setCellValues));
 
@@ -51,7 +54,7 @@ public class Application {
                     entitySupports,
                     new ExcelWorkbookCreator(),
                     new FileOutputStreamCreator());
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }

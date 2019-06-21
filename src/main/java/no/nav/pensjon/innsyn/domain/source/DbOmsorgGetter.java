@@ -4,6 +4,7 @@ import no.nav.pensjon.innsyn.domain.Omsorg;
 import no.nav.pensjon.innsyn.source.SourceException;
 import no.nav.pensjon.innsyn.sql.DbEntityGetter;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.function.Function;
@@ -23,7 +24,8 @@ public class DbOmsorgGetter extends DbEntityGetter<Omsorg> {
 
     private final String sql;
 
-    public DbOmsorgGetter(String fnr) {
+    public DbOmsorgGetter(String fnr, Connection connection) {
+        super(connection);
         this.sql = String.format(SQL, fnr);
     }
 

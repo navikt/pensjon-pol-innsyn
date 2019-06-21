@@ -4,6 +4,7 @@ import no.nav.pensjon.innsyn.domain.Opptjening;
 import no.nav.pensjon.innsyn.source.SourceException;
 import no.nav.pensjon.innsyn.sql.DbEntityGetter;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.function.Function;
@@ -26,7 +27,8 @@ public class DbOpptjeningGetter extends DbEntityGetter<Opptjening> {
 
     private final String sql;
 
-    public DbOpptjeningGetter(String fnr) {
+    public DbOpptjeningGetter(String fnr, Connection connection) {
+        super(connection);
         this.sql = String.format(SQL, fnr);
     }
 

@@ -54,7 +54,8 @@ public class DbBeholdningGetter extends DbEntityGetter<Beholdning> {
 
     private final String sql;
 
-    public DbBeholdningGetter(String fnr) {
+    public DbBeholdningGetter(String fnr, Connection connection) {
+        super(connection);
         this.sql = String.format(SQL, fnr);
     }
 

@@ -4,6 +4,7 @@ import no.nav.pensjon.innsyn.domain.FppAfp;
 import no.nav.pensjon.innsyn.source.SourceException;
 import no.nav.pensjon.innsyn.sql.DbEntityGetter;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.function.Function;
@@ -23,7 +24,8 @@ public class DbFppAfpGetter extends DbEntityGetter<FppAfp> {
 
     private final String sql;
 
-    public DbFppAfpGetter(String fnr) {
+    public DbFppAfpGetter(String fnr, Connection connection) {
+        super(connection);
         this.sql = String.format(SQL, fnr);
     }
 

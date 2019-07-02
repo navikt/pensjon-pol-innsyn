@@ -21,6 +21,7 @@ import static org.mockito.Mockito.*;
 
 class DataTransferrerTest {
 
+    static final String FILE_NAME = "test-worksheet.xlsx";
     private static final int MIN_NUMBER_OF_EXCEL_WORKBOOK_BYTES = 3000;
     private WorkbookCreator workbookCreator;
     private OutputStreamCreator streamCreator;
@@ -79,17 +80,35 @@ class DataTransferrerTest {
 
     @Test
     void transferEntitiesToWorkbook_excel_file() throws IOException {
-        String fileName = "test.xlsx";
         when(workbookCreator.createWorkbook()).thenReturn(new XSSFWorkbook());
-        when(streamCreator.create()).thenReturn(new FileOutputStream(fileName));
+        when(streamCreator.create()).thenReturn(new FileOutputStream(FILE_NAME));
 
         DataTransferrer.transferEntitiesToWorkbook(entitySupports, workbookCreator, streamCreator);
 
-        var file = new File(fileName);
+        var file = new File(FILE_NAME);
         assertTrue(file.exists());
+        assertEquals("hello", getCellValue(0));
         assertTrue(file.delete());
         assertFalse(file.exists());
     }
+
+    static String getCellValue(int cellIndex) throws IOException {
+        try (var workbook = WorkbookFactory.create(new File(FILE_NAME))) {
+            var sheet = workbook.getSheetAt(0);
+            var row = sheet.getRow(1);
+            var cell = row.getCell(cellIndex);
+            return cell.getStringCellValue();
+        }
+    }
+
+//    private static String getCellValue() throws IOException {
+//        try (Workbook workbook = WorkbookFactory.create(new File("test.xlsx"))) {
+//            Sheet sheet = workbook.getSheetAt(0);
+//            Row row = sheet.getRow(1);
+//            Cell cell = row.getCell(0);
+//            return cell.getStringCellValue();
+//        }
+//    }
 
     private class Domain1 {
 

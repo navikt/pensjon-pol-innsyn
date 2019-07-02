@@ -11,7 +11,9 @@ TBD
 
 Spørsmål knyttet til koden eller prosjektet kan rettes mot:
 
-* Espen O. Gjøstøl, espen.oskar.gjostol@nav.no
+* Espen Gjøstøl
+
+E-post: fornavn.etternavn@nav.no
 
 ## For NAV-ansatte
 

@@ -9,18 +9,19 @@ import java.util.List;
 
 class WorkbookWriter {
 
-    static void createFile(WorkbookCreator workbookCreator,
-                           List<SheetPopulator> sheetPopulators,
-                           OutputStreamCreator outputStreamCreator) throws IOException {
+    static void createWorkbook(WorkbookCreator workbookCreator,
+                               List<SheetPopulator> sheetPopulators,
+                               OutputStreamCreator outputStreamCreator) throws IOException {
         try (Workbook workbook = workbookCreator.createWorkbook()) {
             sheetPopulators.forEach(o -> o.populateSheet(workbook));
-            writeToFile(workbook, outputStreamCreator);
+            writeToOutput(workbook, outputStreamCreator);
         }
     }
 
-    private static void writeToFile(Workbook workbook, OutputStreamCreator outputStreamCreator) throws IOException {
+    private static void writeToOutput(Workbook workbook, OutputStreamCreator outputStreamCreator) throws IOException {
         try (OutputStream output = outputStreamCreator.create()) {
             workbook.write(output);
+            output.flush();
         }
     }
 }

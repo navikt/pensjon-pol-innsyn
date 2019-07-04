@@ -1,4 +1,4 @@
-package no.nav.pensjon.innsyn;
+package no.nav.pensjon.innsyn.main;
 
 import no.nav.pensjon.innsyn.domain.desc.*;
 import no.nav.pensjon.innsyn.domain.map.*;
@@ -6,7 +6,7 @@ import no.nav.pensjon.innsyn.domain.source.*;
 import no.nav.pensjon.innsyn.entity.EntitySupport;
 import no.nav.pensjon.innsyn.poi.ss.DataTransferrer;
 import no.nav.pensjon.innsyn.poi.xssf.ExcelWorkbookCreator;
-import no.nav.pensjon.innsyn.sink.FileOutputStreamCreator;
+import no.nav.pensjon.innsyn.sink.OutputStreamCreator;
 import no.nav.pensjon.innsyn.sql.DbConnection;
 
 import java.io.IOException;
@@ -14,11 +14,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Application {
+public class WorksheetProducer {
 
-    public static void main(String[] args) {
-        String fnr = args.length < 1 ? "01029312345" : args[0];
-
+    public static void produceWorksheet(String fnr, OutputStreamCreator outputStreamCreator) throws IOException {
         try (Connection connection = DbConnection.get()) {
             List<EntitySupport<?>> entitySupports = List.of(
                     new EntitySupport<>(
@@ -53,9 +51,9 @@ public class Application {
             DataTransferrer.transferEntitiesToWorkbook(
                     entitySupports,
                     new ExcelWorkbookCreator(),
-                    new FileOutputStreamCreator());
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
+                    outputStreamCreator);
+        } catch (SQLException e) {
+            throw new IOException("Failed to get DB connection: " + e.getMessage(), e);
         }
     }
 }

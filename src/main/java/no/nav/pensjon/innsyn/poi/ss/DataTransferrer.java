@@ -18,6 +18,6 @@ public class DataTransferrer {
                 .map((Function<EntitySupport<?>, SheetFiller>) SheetFiller::new)
                 .collect(Collectors.toList());
 
-        WorkbookWriter.createFile(workbookCreator, populators, outputStreamCreator);
+        WorkbookWriter.createWorkbook(workbookCreator, populators, outputStreamCreator);
     }
 }

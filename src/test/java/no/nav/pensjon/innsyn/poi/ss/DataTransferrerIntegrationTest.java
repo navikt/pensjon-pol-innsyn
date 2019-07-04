@@ -41,7 +41,7 @@ class DataTransferrerIntegrationTest {
     /**
      * Must match fnr used in V4__Populate_tables.sql.
      */
-    private static final  String FNR = "01029312345";
+    private static final String FNR = "01029312345";
 
     @BeforeAll
     static void setUpDatabase() {

@@ -101,15 +101,6 @@ class DataTransferrerTest {
         }
     }
 
-//    private static String getCellValue() throws IOException {
-//        try (Workbook workbook = WorkbookFactory.create(new File("test.xlsx"))) {
-//            Sheet sheet = workbook.getSheetAt(0);
-//            Row row = sheet.getRow(1);
-//            Cell cell = row.getCell(0);
-//            return cell.getStringCellValue();
-//        }
-//    }
-
     private class Domain1 {
 
         String property1 = "hello";

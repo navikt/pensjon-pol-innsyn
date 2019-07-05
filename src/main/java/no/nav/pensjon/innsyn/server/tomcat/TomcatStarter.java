@@ -1,13 +1,13 @@
 package no.nav.pensjon.innsyn.server.tomcat;
 
 import no.nav.pensjon.innsyn.server.AppServerException;
+import no.nav.pensjon.innsyn.server.tls.Tls;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.webresources.DirResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
 
-import javax.servlet.ServletException;
 import java.io.File;
 
 /**
@@ -23,15 +23,20 @@ public class TomcatStarter {
 
     public static void startServer() {
         var server = new Tomcat();
+        enableTls(server);
         server.setPort(getWebPort());
         prepareContext(server);
         start(server);
         server.getServer().await();
     }
 
+    private static void enableTls(Tomcat server) {
+        server.getService().addConnector(Tls.getConnector());
+    }
+
     private static int getWebPort() {
-        String webPort = System.getenv("TOMCAT_PORT");
-        return webPort == null || webPort.isEmpty() ? DEFAULT_WEB_PORT : Integer.valueOf(webPort);
+        String port = System.getenv("TOMCAT_PORT");
+        return port == null || port.isEmpty() ? DEFAULT_WEB_PORT : Integer.valueOf(port);
     }
 
     private static void prepareContext(Tomcat server) {

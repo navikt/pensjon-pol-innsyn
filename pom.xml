@@ -8,22 +8,12 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>pensjon-pol-innsyn</name>
     <description>Innsyn i pensjonsdata i henhold til personopplysningsloven</description>
-    <repositories>
-        <repository>
-            <id>ext.mvn.xwiki.org</id>
-            <name>oracle-driver-repo</name>
-            <url>https://maven.xwiki.org/externals/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </releases>
-        </repository>
-    </repositories>
+
     <properties>
         <junit.jupiter.version>5.1.1</junit.jupiter.version>
         <tomcat.version>8.5.42</tomcat.version>
     </properties>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core -->
         <dependency>
@@ -49,10 +39,9 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.oracle.jdbc/ojdbc8 -->
         <dependency>
-            <groupId>com.oracle.jdbc</groupId>
-            <artifactId>ojdbc8</artifactId>
-            <version>12.2.0.1</version>
-            <scope>runtime</scope>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>12.1.0.2</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
@@ -89,6 +78,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>app</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

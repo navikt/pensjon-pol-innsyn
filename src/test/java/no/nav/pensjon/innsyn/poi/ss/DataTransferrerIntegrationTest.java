@@ -51,7 +51,7 @@ class DataTransferrerIntegrationTest {
         flyway.validate();
     }
 
-    @Test
+    //@Test
     void transferEntitiesToWorkbook() throws Exception {
         integrate((in, out) -> {
             List<EntitySupport<?>> entitySupports = List.of(new EntitySupport<>(

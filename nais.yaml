@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teampeon
 spec:
-  image: repo.adeo.no:5443/pensjon-pol-innsyn :{{version}}
+  image: repo.adeo.no:5443/pensjon-pol-innsyn:{{version}}
   port: 8080
   ingresses:
     - {{ingress}}
@@ -28,4 +28,3 @@ spec:
       memory: 256Mi
   prometheus:
     enabled: true
-    path: actuator/prometheus

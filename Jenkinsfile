@@ -68,8 +68,8 @@ pipeline {
                     ]
                     for (deployment in deployments) {
                         latestDeploy = [deployment]
-                        (context, namespace, manifest) = deployment
-                        deploy.naiserator(context, namespace, manifest)
+                        (context, namespace) = deployment
+                        deploy.naiserator(context, namespace)
                     }
                 }
             }

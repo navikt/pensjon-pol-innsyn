@@ -9,15 +9,21 @@ import org.apache.catalina.webresources.DirResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
 
 import java.io.File;
-import java.util.Objects;
+import java.net.URISyntaxException;
 
 /**
  * Adapted from
  * https://devcenter.heroku.com/articles/create-a-java-web-application-using-embedded-tomcat
  */
 public class TomcatStarter {
+    private static String getWebappRelativePath() {
+        try {
+            return new File(ClassLoader.getSystemResource("/webapp/").toURI()).getPath();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    private static final String WEBAPP_RELATIVE_PATH = "/webapp/";
     private static final String WEBAPP_MOUNT = "/WEB-INF/classes";
     private static final String RELATIVE_RESOURCE_BASE = "target/classes";
     private static final int DEFAULT_WEB_PORT = 8080;
@@ -41,7 +47,7 @@ public class TomcatStarter {
     }
 
     private static void prepareContext(Tomcat server) {
-        var context = (StandardContext) server.addWebapp(WEBAPP_RELATIVE_PATH, "");
+        var context = (StandardContext) server.addWebapp(getWebappRelativePath(), "");
         var webResourceRoot = new StandardRoot(context);
         String resourceBase = absolutePath(RELATIVE_RESOURCE_BASE);
         webResourceRoot.addPreResources(new DirResourceSet(webResourceRoot, WEBAPP_MOUNT, resourceBase, "/"));

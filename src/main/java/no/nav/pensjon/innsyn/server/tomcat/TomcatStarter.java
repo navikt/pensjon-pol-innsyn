@@ -39,7 +39,7 @@ public class TomcatStarter {
     }
 
     private static void prepareContext(Tomcat server) {
-        var context = (StandardContext) server.addWebapp("", WEBAPP_RELATIVE_PATH);
+        var context = (StandardContext) server.addWebapp("", absolutePath(WEBAPP_RELATIVE_PATH));
         var webResourceRoot = new StandardRoot(context);
         String resourceBase = absolutePath(RELATIVE_RESOURCE_BASE);
         webResourceRoot.addPreResources(new DirResourceSet(webResourceRoot, WEBAPP_MOUNT, resourceBase, "/"));

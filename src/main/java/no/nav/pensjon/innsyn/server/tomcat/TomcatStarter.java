@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 public class TomcatStarter {
 
-    private static final String WEBAPP_RELATIVE_PATH = Objects.requireNonNull(TomcatStarter.class.getClassLoader().getResource("webapp/")).getPath();
+    private static final String WEBAPP_RELATIVE_PATH = "/webapp/";
     private static final String WEBAPP_MOUNT = "/WEB-INF/classes";
     private static final String RELATIVE_RESOURCE_BASE = "target/classes";
     private static final int DEFAULT_WEB_PORT = 8080;

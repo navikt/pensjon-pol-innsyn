@@ -15,7 +15,7 @@ import java.io.File;
  * https://devcenter.heroku.com/articles/create-a-java-web-application-using-embedded-tomcat
  */
 public class TomcatStarter {
-    private static final String WEBAPP_RELATIVE_PATH = "/target/classes/webapp";
+    private static final String WEBAPP_RELATIVE_PATH = "target/classes/webapp";
     private static final String WEBAPP_MOUNT = "/WEB-INF/classes";
     private static final String RELATIVE_RESOURCE_BASE = "target/classes";
     private static final int DEFAULT_WEB_PORT = 8080;

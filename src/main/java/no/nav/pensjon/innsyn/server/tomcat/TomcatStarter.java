@@ -15,8 +15,8 @@ import java.io.File;
  * https://devcenter.heroku.com/articles/create-a-java-web-application-using-embedded-tomcat
  */
 public class TomcatStarter {
-    private static final String WEBAPP_RELATIVE_PATH = "src/main/resources/webapp";
-    private static final String WEBAPP_MOUNT = "/webapp/WEB-INF/classes";
+    private static final String WEBAPP_RELATIVE_PATH = "/";
+    private static final String WEBAPP_MOUNT = "/WEB-INF/classes";
     private static final String RELATIVE_RESOURCE_BASE = "target/classes";
     private static final int DEFAULT_WEB_PORT = 8080;
 
@@ -39,7 +39,7 @@ public class TomcatStarter {
     }
 
     private static void prepareContext(Tomcat server) {
-        var context = (StandardContext) server.addWebapp("/src/main/resources", WEBAPP_RELATIVE_PATH);
+        var context = (StandardContext) server.addWebapp("", WEBAPP_RELATIVE_PATH);
         var webResourceRoot = new StandardRoot(context);
         String resourceBase = absolutePath(RELATIVE_RESOURCE_BASE);
         webResourceRoot.addPreResources(new DirResourceSet(webResourceRoot, WEBAPP_MOUNT, resourceBase, "/"));
@@ -49,6 +49,7 @@ public class TomcatStarter {
     private static void start(Tomcat server) {
         try {
             server.start();
+            System.out.println("Started successfully.");
         } catch (LifecycleException e) {
             throw new AppServerException("Failed to start Tomcat", e);
         }

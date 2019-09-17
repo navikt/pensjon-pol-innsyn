@@ -27,6 +27,7 @@ public class TomcatStarter {
         prepareContext(server);
         start(server);
         server.getServer().await();
+        System.out.println("Started successfully.");
     }
 
     private static void enableTls(Tomcat server) {
@@ -49,7 +50,6 @@ public class TomcatStarter {
     private static void start(Tomcat server) {
         try {
             server.start();
-            System.out.println("Started successfully.");
         } catch (LifecycleException e) {
             throw new AppServerException("Failed to start Tomcat", e);
         }

@@ -19,7 +19,7 @@ public class Tls {
         connector.setAttribute("keyAlias", "innsyntest");
         connector.setAttribute("keystorePass", "changeit");
         connector.setAttribute("keystoreType", "PKCS12");
-        connector.setAttribute("keystoreFile", "../src/main/resources/keystore/selfsigned.p12");
+        connector.setAttribute("keystoreFile", "keystore/selfsigned.p12");
         connector.setAttribute("clientAuth", "false");
         connector.setAttribute("protocol", "HTTP/1.1");
         connector.setAttribute("sslProtocol", "TLS");
@@ -31,6 +31,6 @@ public class Tls {
 
     private static int getTlsPort() {
         String port = System.getenv("TOMCAT_TLS_PORT");
-        return port == null || port.isEmpty() ? DEFAULT_PORT : Integer.valueOf(port);
+        return port == null || port.isEmpty() ? DEFAULT_PORT : Integer.parseInt(port);
     }
 }

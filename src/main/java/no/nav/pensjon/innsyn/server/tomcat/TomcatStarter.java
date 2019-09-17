@@ -17,7 +17,7 @@ import java.io.File;
 public class TomcatStarter {
     private static final String WEBAPP_RELATIVE_PATH = "/";
     private static final String WEBAPP_MOUNT = "/WEB-INF/classes";
-    private static final String RELATIVE_RESOURCE_BASE = "target/classes";
+    private static final String RELATIVE_RESOURCE_BASE = "/";
     private static final int DEFAULT_WEB_PORT = 8080;
 
     public static void startServer() {

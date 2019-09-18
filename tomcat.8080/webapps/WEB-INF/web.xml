@@ -16,7 +16,11 @@
     </servlet>
     <servlet>
         <servlet-name>IsReady</servlet-name>
-        <servlet-class>IsReadyServlet</servlet-class>
+        <servlet-class>ProbeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>IsAlive</servlet-name>
+        <servlet-class>ProbeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Innsyn</servlet-name>
@@ -31,7 +35,7 @@
         <url-pattern>/isReady</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>IsReady</servlet-name>
+        <servlet-name>IsAlive</servlet-name>
         <url-pattern>/isAlive</url-pattern>
     </servlet-mapping>
 

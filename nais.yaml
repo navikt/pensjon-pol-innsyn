@@ -12,9 +12,9 @@ spec:
   ingresses:
     - {{ingress}}
   liveness:
-    path: isAlive
+    path: /isAlive
   readiness:
-    path: isReady
+    path: /isReady
   vault:
     enabled: true
   replicas:

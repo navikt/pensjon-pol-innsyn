@@ -30,5 +30,9 @@
         <servlet-name>IsReady</servlet-name>
         <url-pattern>/isReady</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>IsReady</servlet-name>
+        <url-pattern>/isAlive</url-pattern>
+    </servlet-mapping>
 
 </web-app>

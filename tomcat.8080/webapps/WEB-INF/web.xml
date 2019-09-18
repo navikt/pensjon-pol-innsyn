@@ -14,6 +14,10 @@
         <servlet-name>Ping</servlet-name>
         <servlet-class>PingServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>IsReady</servlet-name>
+        <servlet-class>IsReadyServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Innsyn</servlet-name>
         <url-pattern>/innsyn</url-pattern>
@@ -21,6 +25,10 @@
     <servlet-mapping>
         <servlet-name>Ping</servlet-name>
         <url-pattern>/ping</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>IsReady</servlet-name>
+        <url-pattern>/isReady</url-pattern>
     </servlet-mapping>
 
 </web-app>

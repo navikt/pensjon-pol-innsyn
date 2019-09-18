@@ -27,7 +27,6 @@ public class TomcatStarter {
         prepareContext(server);
         start(server);
         server.getServer().await();
-        System.out.println("Started successfully.");
     }
 
     private static void enableTls(Tomcat server) {

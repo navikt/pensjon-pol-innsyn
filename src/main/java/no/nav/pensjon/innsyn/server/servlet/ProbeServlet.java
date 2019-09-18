@@ -14,7 +14,7 @@ public class ProbeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setStatus(200);
         try (ServletOutputStream out = response.getOutputStream()) {
-            out.print(true);
+            out.write("{\"status\":\"UP\"}".getBytes());
             out.flush();
         }
     }

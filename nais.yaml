@@ -12,9 +12,13 @@ spec:
   ingresses:
     - {{ingress}}
   liveness:
-    path: /isAlive
+    httpGet:
+      path: /isAlive
+      port: 8080
   readiness:
-    path: /isReady
+    httpGet:
+      path: /isReady
+      port: 8080
   vault:
     enabled: true
   replicas:

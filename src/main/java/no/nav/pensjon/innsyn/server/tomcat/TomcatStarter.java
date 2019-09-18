@@ -49,6 +49,7 @@ public class TomcatStarter {
 
     private static void start(Tomcat server) {
         try {
+            server.init();
             server.start();
         } catch (LifecycleException e) {
             throw new AppServerException("Failed to start Tomcat", e);

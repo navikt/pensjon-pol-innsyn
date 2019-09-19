@@ -101,8 +101,8 @@ class DataTransferrerTest {
         }
     }
 
-    private class Domain1 {
+    private static class Domain1 {
 
-        String property1 = "hello";
+        final String property1 = "hello";
     }
 }

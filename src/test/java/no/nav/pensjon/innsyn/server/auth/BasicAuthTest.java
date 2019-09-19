@@ -1,81 +1,116 @@
 package no.nav.pensjon.innsyn.server.auth;
 
+import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.stubbing.Stubber;
+import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
+import java.io.IOException;
 import java.util.Base64;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 class BasicAuthTest {
 
-    private static String CORRECT_USERNAME = "postgres";
-    private static String CORRECT_PASSWORD = "docker";
-    private static String HEADER_NAME = "Authorization";
+    private static final String CORRECT_USERNAME = "postgres";
+    private static final String CORRECT_PASSWORD = "docker";
+    private static final String HEADER_NAME = "Authorization";
+
+    @Mock
+    private HttpServletRequest request;
+
+    @Mock
+    private HttpServletResponse response;
+
+    @Mock
+    private FilterChain chain;
+
+    private BasicAuth filter = new BasicAuth();
+
+    @BeforeEach
+    public void init_mocks(){
+        request = mock(HttpServletRequest.class);
+        response = mock(HttpServletResponse.class);
+        chain = mock(FilterChain.class);
+    }
 
     @Test
-    void hasBasicAuth_correctCredentials() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
+    void hasBasicAuth_correctCredentials() throws IOException, ServletException {
         when(request.getHeader(HEADER_NAME)).thenReturn(basicAuth(CORRECT_USERNAME, CORRECT_PASSWORD));
-        assertTrue(BasicAuth.hasBasicAuth(request));
+        filter.doFilter(request, response, chain);
+        verifyZeroInteractions(response);
     }
 
     @Test
-    void hasBasicAuth_emptyRequest() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        assertFalse(BasicAuth.hasBasicAuth(request));
+    void hasBasicAuth_emptyRequest() throws IOException, ServletException {
+        filter.doFilter(request, response, chain);
+        verify(response, atLeastOnce()).setStatus(401);
     }
 
     @Test
-    void hasBasicAuth_incorrectPassword() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
+    void hasBasicAuth_incorrectPassword() throws IOException, ServletException {
         when(request.getHeader(HEADER_NAME)).thenReturn(basicAuth(CORRECT_USERNAME, "incorrect"));
-        assertFalse(BasicAuth.hasBasicAuth(request));
+        filter.doFilter(request, response, chain);
+        verify(response, atLeastOnce()).setStatus(401);
     }
 
     @Test
-    void hasBasicAuth_incorrectUsername() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
+    void hasBasicAuth_incorrectUsername() throws IOException, ServletException {
         when(request.getHeader(HEADER_NAME)).thenReturn(basicAuth("incorrect", CORRECT_PASSWORD));
-        assertFalse(BasicAuth.hasBasicAuth(request));
+        filter.doFilter(request, response, chain);
+        verify(response, atLeastOnce()).setStatus(401);
     }
 
     @Test
-    void hasBasicAuth_invalidBase64Value() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
+    void hasBasicAuth_invalidBase64Value() throws IOException, ServletException {
         when(request.getHeader(HEADER_NAME)).thenReturn("Basic cG9zdGdyZXM6ZG9ja2VyMg=");
-        assertFalse(BasicAuth.hasBasicAuth(request));
+        filter.doFilter(request, response, chain);
+        verify(response, atLeastOnce()).setStatus(401);
     }
 
     @Test
-    void hasBasicAuth_wrongAuthType() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
+    void hasBasicAuth_wrongAuthType() throws IOException, ServletException {
         when(request.getHeader(HEADER_NAME)).thenReturn("Bearer " + correctCredentials());
-        assertFalse(BasicAuth.hasBasicAuth(request));
+        filter.doFilter(request, response, chain);
+        verify(response, atLeastOnce()).setStatus(401);
     }
 
     @Test
-    void hasBasicAuth_invalidAuthType() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
+    void hasBasicAuth_invalidAuthType() throws IOException, ServletException {
         when(request.getHeader(HEADER_NAME)).thenReturn("Invalid " + correctCredentials());
-        assertFalse(BasicAuth.hasBasicAuth(request));
+        filter.doFilter(request, response, chain);
+        verify(response, atLeastOnce()).setStatus(401);
     }
 
     @Test
-    void hasBasicAuth_noAuthType() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
+    void hasBasicAuth_noAuthType() throws IOException, ServletException {
         when(request.getHeader(HEADER_NAME)).thenReturn(correctCredentials());
-        assertFalse(BasicAuth.hasBasicAuth(request));
+        filter.doFilter(request, response, chain);
+        verify(response, atLeastOnce()).setStatus(401);
     }
 
     @Test
-    void hasBasicAuth_noHeaderValue() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
+    void hasBasicAuth_noHeaderValue() throws IOException, ServletException {
         when(request.getHeader(HEADER_NAME)).thenReturn("");
-        assertFalse(BasicAuth.hasBasicAuth(request));
+        filter.doFilter(request, response, chain);
+        verify(response, atLeastOnce()).setStatus(401);
     }
 
     private static String basicAuth(String username, String password) {

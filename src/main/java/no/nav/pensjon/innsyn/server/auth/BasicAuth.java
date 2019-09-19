@@ -2,11 +2,16 @@ package no.nav.pensjon.innsyn.server.auth;
 
 import no.nav.pensjon.innsyn.server.http.Headers;
 
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Base64;
 
-public class BasicAuth {
+@WebFilter(filterName="BasicAuth", urlPatterns={"/innsyn"}, servletNames={"InnsynServlet"})
+public class BasicAuth extends HttpFilter {
 
     private static final String AUTH_TYPE = "Basic";
     private static final String USERNAME_PASSWORD_SEPARATOR = ":";
@@ -15,25 +20,26 @@ public class BasicAuth {
     private static final int USERNAME_INDEX = 0;
     private static final int PASSWORD_INDEX = 1;
 
-    public static boolean hasBasicAuth(HttpServletRequest request) {
+    @Override
+    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String auth = request.getHeader(Headers.AUTH);
+        if (!(auth == null || auth.length() < CREDENTIALS_START_INDEX)) {
 
-        if (auth == null || auth.length() < CREDENTIALS_START_INDEX) {
-            return false;
+            var credentialBytes = decode(auth.substring(CREDENTIALS_START_INDEX));
+            if (!(credentialBytes == null || credentialBytes.length < 1)) {
+
+                String[] credentials = new String(credentialBytes).split(USERNAME_PASSWORD_SEPARATOR);
+                if (credentials[USERNAME_INDEX].equals("postgres") && credentials[PASSWORD_INDEX].equals("docker")){
+                    chain.doFilter(request, response);
+                    return;
+                }
+            }
         }
-
-        String base64Credentials = auth.substring(CREDENTIALS_START_INDEX);
-        byte[] decodedCredentials = decode(base64Credentials);
-
-        if (decodedCredentials == null || decodedCredentials.length < 1) {
-            return false;
-        }
-
-        String[] credentials = new String(decodedCredentials).split(USERNAME_PASSWORD_SEPARATOR);
-        return credentials[USERNAME_INDEX].equals("postgres") && credentials[PASSWORD_INDEX].equals("docker");
+        challenge(response);
+        response.sendError(HTTP_STATUS_UNAUTHORIZED, "Invalid authentication.");
     }
 
-    public static void challenge(HttpServletResponse response) {
+    private static void challenge(HttpServletResponse response) {
         response.setStatus(HTTP_STATUS_UNAUTHORIZED);
         response.setHeader(Headers.CHALLENGE, AUTH_TYPE);
     }
@@ -44,5 +50,9 @@ public class BasicAuth {
         } catch (IllegalArgumentException e) {
             return null;
         }
+    }
+
+    @Override
+    public void destroy() {
     }
 }

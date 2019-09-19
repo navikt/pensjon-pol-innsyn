@@ -12,10 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static no.nav.pensjon.innsyn.main.WorksheetProducer.produceWorksheet;
-import static no.nav.pensjon.innsyn.server.auth.BasicAuth.challenge;
-import static no.nav.pensjon.innsyn.server.auth.BasicAuth.hasBasicAuth;
 
-@WebServlet(name = "InnsynServlet", urlPatterns = {"/innsyn"})
+@WebServlet(name = "InnsynServlet", urlPatterns = {"/innsyn"}, loadOnStartup = 1)
 public class InnsynServlet extends HttpServlet {
 
     private static final String QUERY_PARAMETER_NAME = "fnr";
@@ -26,16 +24,14 @@ public class InnsynServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (!hasBasicAuth(request)) {
-            challenge(response);
-            return;
-        }
-
         String queryString = request.getQueryString();
-        String fnr = queryString.substring(FNR_START_INDEX);
-        response.setContentType(CONTENT_TYPE_EXCEL);
-        response.setHeader(Headers.CONTENT_DISPOSITION, getContentDisposition());
-        produceWorksheet(fnr, new ServletOutputStreamCreator(response));
+        if (queryString == null) response.sendError(400,"Missing query.");
+        else {
+            String fnr = queryString.substring(FNR_START_INDEX);
+            response.setContentType(CONTENT_TYPE_EXCEL);
+            response.setHeader(Headers.CONTENT_DISPOSITION, getContentDisposition());
+            produceWorksheet(fnr, new ServletOutputStreamCreator(response));
+        }
     }
 
     private static String getContentDisposition() {

@@ -9,6 +9,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 public class Application {
 
     public static void main(String[] args) {
+        System.out.println("CLIENT_ID = " + System.getenv("CLIENT_ID"));
         SpringApplication.run(Application.class, args);
     }
 }

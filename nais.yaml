@@ -1,6 +1,5 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
-webproxy: true
 metadata:
   name: pensjon-pol-innsyn
   namespace: {{namespace}}
@@ -9,6 +8,7 @@ metadata:
 spec:
   image: repo.adeo.no:5443/pensjon-pol-innsyn:{{version}}
   port: 8080
+  webproxy: true
   ingresses:
     - {{ingress}}
   liveness:

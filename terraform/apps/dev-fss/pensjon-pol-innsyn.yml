@@ -1,0 +1,5 @@
+name: team-peon
+group_id: 825ccfd0-92a9-4ddf-ab3e-1f7106a1c787
+azuread:
+  dev:
+    - pensjon-pol-innsyn

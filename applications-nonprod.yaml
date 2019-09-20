@@ -1,0 +1,6 @@
+Applications:
+  - name: 'pensjon-pol-innsyn'
+    replyURLs:
+      - 'https://localhost/callback'
+    owners:
+      - 'mathias.sand.jahren@trygdeetaten.no'

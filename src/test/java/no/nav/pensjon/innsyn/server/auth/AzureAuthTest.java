@@ -11,7 +11,6 @@ import java.util.Base64;
 import java.util.concurrent.ExecutionException;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -50,48 +49,48 @@ class AzureAuthTest {
     }
 
     @Test
-    void hasBasicAuth_correctCredentials() throws IOException, ServletException, ExecutionException {
+    void hasAzureAuth_correctCredentials() throws IOException, ExecutionException {
         when(request.getHeader(HEADER_NAME)).thenReturn(bearerToken());
         filter.doFilter(request, response, chain);
         verifyZeroInteractions(response);
     }
 
     @Test
-    void hasBasicAuth_emptyRequest() throws IOException, ServletException {
+    void hasAzureAuth_emptyRequest() throws IOException {
         filter.doFilter(request, response, chain);
         verify(response, atLeastOnce()).setStatus(401);
     }
 
     @Test
-    void hasBasicAuth_invalidToken() throws IOException, ServletException {
+    void hasAzureAuth_invalidToken() throws IOException {
         when(request.getHeader(HEADER_NAME)).thenReturn("Bearer cG9zdGdyZXM6ZG9ja2VyMg=");
         filter.doFilter(request, response, chain);
         verify(response, atLeastOnce()).setStatus(401);
     }
 
     @Test
-    void hasBasicAuth_wrongAuthType() throws IOException, ServletException, ExecutionException {
+    void hasAzureAuth_wrongAuthType() throws IOException, ExecutionException {
         when(request.getHeader(HEADER_NAME)).thenReturn(bearerToken().replace("Bearer ", "Basic "));
         filter.doFilter(request, response, chain);
         verify(response, atLeastOnce()).setStatus(401);
     }
 
     @Test
-    void hasBasicAuth_invalidAuthType() throws IOException, ServletException, ExecutionException {
+    void hasAzureAuth_invalidAuthType() throws IOException, ExecutionException {
         when(request.getHeader(HEADER_NAME)).thenReturn(bearerToken().replace("Bearer ", "Invalid "));
         filter.doFilter(request, response, chain);
         verify(response, atLeastOnce()).setStatus(401);
     }
 
     @Test
-    void hasBasicAuth_noAuthType() throws IOException, ServletException, ExecutionException {
+    void hasAzureAuth_noAuthType() throws IOException, ExecutionException {
         when(request.getHeader(HEADER_NAME)).thenReturn(bearerToken().replace("Bearer ", ""));
         filter.doFilter(request, response, chain);
         verify(response, atLeastOnce()).setStatus(401);
     }
 
     @Test
-    void hasBasicAuth_noHeaderValue() throws IOException, ServletException {
+    void hasAzureAuth_noHeaderValue() throws IOException {
         when(request.getHeader(HEADER_NAME)).thenReturn("");
         filter.doFilter(request, response, chain);
         verify(response, atLeastOnce()).setStatus(401);

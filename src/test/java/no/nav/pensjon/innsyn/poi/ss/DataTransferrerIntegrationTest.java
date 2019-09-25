@@ -6,8 +6,10 @@ import no.nav.pensjon.innsyn.domain.source.DbBeholdningGetter;
 import no.nav.pensjon.innsyn.entity.EntitySupport;
 import no.nav.pensjon.innsyn.poi.xssf.ExcelWorkbookCreator;
 import no.nav.pensjon.innsyn.sink.OutputStreamCreator;
+
 import com.zaxxer.hikari.HikariDataSource;
 import com.zaxxer.hikari.HikariConfig;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.Network;
@@ -24,6 +26,7 @@ import java.util.List;
 
 import static no.nav.pensjon.innsyn.poi.ss.DataTransferrerTest.FILE_NAME;
 import static no.nav.pensjon.innsyn.poi.ss.DataTransferrerTest.getCellValue;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -52,10 +55,8 @@ class DataTransferrerIntegrationTest {
     private static final String V4_INIT_SCRIPT = "db/migration/V4__Populate_tables.sql";
     private static final int DB_PORT = 5432;
 
-
     @Container
     private static PostgreSQLContainer postgresqlContainer = setUpPostgresContainer();
-
 
     private static PostgreSQLContainer setUpPostgresContainer() {
         return new PostgreSQLContainer<>()

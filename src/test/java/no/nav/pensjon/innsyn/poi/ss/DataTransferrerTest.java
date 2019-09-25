@@ -5,6 +5,7 @@ import no.nav.pensjon.innsyn.entity.EntitySupport;
 import no.nav.pensjon.innsyn.sink.CellValueSetter;
 import no.nav.pensjon.innsyn.sink.OutputStreamCreator;
 import no.nav.pensjon.innsyn.source.EntityGetter;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +37,7 @@ class DataTransferrerTest {
         streamCreator = mock(OutputStreamCreator.class);
         entitySupports = List.of(new EntitySupport<>(source, descriptor, sink));
         when(descriptor.getEntityName()).thenReturn("sheet1");
-        when(descriptor.getPropertyNames()).thenReturn(new String[]{"col1"});
+        when(descriptor.getPropertyNames()).thenReturn(new String[] {"col1"});
     }
 
     @Test

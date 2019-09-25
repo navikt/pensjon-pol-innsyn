@@ -1,8 +1,5 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
-webproxy: true
-vault:
-  enabled: true
 metadata:
   name: pensjon-pol-innsyn
   namespace: {{namespace}}
@@ -17,6 +14,7 @@ spec:
     path: /isAlive
   readiness:
     path: /isReady
+  webproxy: true
   vault:
     enabled: true
   replicas:

@@ -7,6 +7,20 @@ import java.time.LocalDate;
 import no.nav.pensjon.innsyn.sink.FileOutputStreamCreator;
 
 public class LocalRunner {
+
+    /**
+     * Generates .xlsx files labeled as [FNR]-POPP-[YYYY-MM-DD].
+     *
+     * Requires the following environment variables:
+     * POPP_SERVICENAME
+     * POPP_HOSTNAME
+     * POPP_PORT
+     * POPP_USERNAME
+     * POPP_PASSWORD
+     * POPP_DBMS	(should be "oracle")
+     *
+     * @param args Space-separated list of FNRs.
+     */
     public static void main(String[] args) {
         for (String fnr: args) {
             try {

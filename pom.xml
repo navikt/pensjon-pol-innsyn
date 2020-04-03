@@ -22,6 +22,14 @@
         <mainClass>no.nav.pensjon.innsyn.main.Application</mainClass>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>aad-auth</id>
+            <name>Azure Active Directory Authorization GitHub Package Registry</name>
+            <url>https://maven.pkg.github.com/navikt/azure-active-directory-authorization</url>
+        </repository>
+    </repositories>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -29,11 +37,6 @@
         <relativePath/>
     </parent>
     <dependencies>
-        <dependency>
-            <groupId>no.nav.pensjon</groupId>
-            <artifactId>aad-auth</artifactId>
-            <version>3</version>
-        </dependency>
         <!-- Apache Poi -->
         <dependency>
             <groupId>org.apache.poi</groupId>

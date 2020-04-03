@@ -37,6 +37,11 @@
         <relativePath/>
     </parent>
     <dependencies>
+        <dependency>
+            <groupId>no.nav.pensjon</groupId>
+            <artifactId>aad-auth</artifactId>
+            <version>3</version>
+        </dependency>
         <!-- Apache Poi -->
         <dependency>
             <groupId>org.apache.poi</groupId>

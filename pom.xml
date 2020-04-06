@@ -40,7 +40,7 @@
         <dependency>
             <groupId>no.nav.pensjon</groupId>
             <artifactId>aad-auth</artifactId>
-            <version>3</version>
+            <version>e2d63b1</version>
         </dependency>
         <!-- Apache Poi -->
         <dependency>

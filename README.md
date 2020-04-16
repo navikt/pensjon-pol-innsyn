@@ -17,4 +17,4 @@ E-post: fornavn.etternavn@nav.no
 
 ## For NAV-ansatte
 
-Interne henvendelser kan sendes via Slack i kanalen [#peon](https://nav-it.slack.com/messages/C6M80587R/).
+Interne henvendelser kan sendes via Slack i kanalen [#samhandling_pensjonsområdet](https://nav-it.slack.com/archives/CQ08JC3UG).

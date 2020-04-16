@@ -13,7 +13,7 @@ import org.testcontainers.utility.MountableFile;
  * This integration test uses Testcontainers to set up a dockerised PostgreSQL database on the fly.
  */
 @Testcontainers
-class DataTransferrerIntegrationTest {
+class DataTransferrerPostgresIntegrationTest {
 
     private static final Network network = Network.newNetwork();
     private static final String DB_NAME = "pensjon-pol";

@@ -22,6 +22,14 @@
         <mainClass>no.nav.pensjon.innsyn.main.Application</mainClass>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>aad-auth</id>
+            <name>Azure Active Directory Authorization GitHub Package Registry</name>
+            <url>https://maven.pkg.github.com/navikt/azure-active-directory-authorization</url>
+        </repository>
+    </repositories>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -32,7 +40,7 @@
         <dependency>
             <groupId>no.nav.pensjon</groupId>
             <artifactId>aad-auth</artifactId>
-            <version>3</version>
+            <version>e2d63b1</version>
         </dependency>
         <!-- Apache Poi -->
         <dependency>
@@ -58,9 +66,9 @@
         </dependency>
         <!-- Oracle Driver -->
         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>12.1.0.2</version>
+            <groupId>com.oracle.ojdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <version>19.3.0.0</version>
         </dependency>
         <!-- Junit 5 -->
         <dependency>
@@ -79,6 +87,12 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>1.11.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>oracle-xe</artifactId>
+            <version>1.13.0</version>
             <scope>test</scope>
         </dependency>
         <!-- Mockito -->

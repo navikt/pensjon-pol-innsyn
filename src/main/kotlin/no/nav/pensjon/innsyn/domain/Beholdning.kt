@@ -1,0 +1,32 @@
+package no.nav.pensjon.innsyn.domain
+
+import org.springframework.core.annotation.Order
+
+data class Beholdning(val datoFom: String,
+                      val datoTom: String,
+                      val belop: Double,
+                      val beholdningstype: String,
+                      val status: String,
+                      val grunnlag: Double,
+                      val grunnlagAvkortet: Double,
+                      val innskudd: Double,
+                      val inntektsar: Int,
+                      val inntektsgrunnlag: Double,
+                      val forstegangstjenesteAr: Int,
+                      val ordinareDagpenger: Double,
+                      val dagpengerAr: Int,
+                      val dagpengerFisker: Double,
+                      val omsorgAr: Int,
+                      val omsorgBelop: Double,
+                      val omsorgInnskudd: Double,
+                      val uforeBelop: Double,
+                      val uforeAr: Int,
+                      val uforegrad: Double,
+                      val uforeYrkesskadegrad: Double,
+                      val uforeAntattInntektYrke: Double,
+                      val uforeYrkesskade: Boolean,
+                      val uforeUforetrygd: Boolean,
+                      val uforeUforeAr: Boolean,
+                      val uforeAntattInntekt: Double,
+                      val reguleringBelop: Double,
+                      val reguleringDato: String)

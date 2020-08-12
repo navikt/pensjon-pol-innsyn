@@ -1,7 +1,6 @@
 package no.nav.pensjon.innsyn.domain.source
 
 import no.nav.pensjon.innsyn.domain.Inntekt
-import no.nav.pensjon.innsyn.source.EntityGetter
 
 class HardcodedInntekt : EntityGetter<Inntekt?> {
     override val entities = listOf(

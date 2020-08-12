@@ -7,6 +7,7 @@ description = "pensjon-pol-innsyn"
 plugins {
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.spring") version "1.3.72"
+    kotlin("plugin.noarg") version "1.3.72"
     id("org.springframework.boot") version "2.2.7.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
 }
@@ -38,9 +39,8 @@ dependencies {
     implementation(kotlin("stdlib"))
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_13
-    targetCompatibility = JavaVersion.VERSION_13
+noArg {
+    annotation("javax.persistence.Entity")
 }
 
 tasks{

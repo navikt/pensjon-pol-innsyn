@@ -1,7 +1,6 @@
 package no.nav.pensjon.innsyn.domain.source
 
 import no.nav.pensjon.innsyn.domain.FppAfp
-import no.nav.pensjon.innsyn.source.EntityGetter
 
 class HardcodedFppAfp : EntityGetter<FppAfp?> {
     override val entities = listOf(

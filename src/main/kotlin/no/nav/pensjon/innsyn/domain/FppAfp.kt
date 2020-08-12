@@ -1,14 +1,29 @@
 package no.nav.pensjon.innsyn.domain
 
-import org.springframework.core.annotation.Order
+import javax.persistence.*
 
 /**
  * FPP = Framtidige pensjonspoeng
  * AFP = Avtalefestet pensjon
  */
-data class FppAfp(val status: String,
-                  val fppAfp: Double,
-                  val gjelderFom: String,
-                  val gjelderTom: String,
-                  val afpPensjonsgrad: Double,
-                  val afpType: String)
+@Entity
+@Table(name = "T_FPP_AFP")
+@SecondaryTable(name = "T_K_FPP_AFP_S", pkJoinColumns = [PrimaryKeyJoinColumn(name = "K_FPP_AFP_S")])
+data class FppAfp(
+        @Column(name = "DEKODE", table = "T_K_FPP_AFP_S")
+        val status: String,
+        @Column(name = "AFP_FPP")
+        val fppAfp: Double,
+        @Column(name = "VIRK_FOM")
+        val gjelderFom: String,
+        @Column(name = "VIRK_TOM")
+        val gjelderTom: String,
+        @Column(name = "AFP_PENSJONSGRAD")
+        val afpPensjonsgrad: Double,
+        @Column(name = "AFP_TYPE")
+        val afpType: String
+) {
+    @Id
+    @Column(name = "PERSON_ID")
+    var personId: Int? = null
+}

@@ -1,7 +1,6 @@
 package no.nav.pensjon.innsyn.domain.source
 
 import no.nav.pensjon.innsyn.domain.Beholdning
-import no.nav.pensjon.innsyn.source.EntityGetter
 
 class HardcodedBeholdning : EntityGetter<Beholdning?> {
     override val entities = listOf(

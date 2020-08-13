@@ -1,6 +1,6 @@
 package no.nav.pensjon.innsyn.service.map
 
-import no.nav.pensjon.innsyn.entity.DomainContainer
+import no.nav.pensjon.innsyn.domain.DomainContainer
 import org.apache.poi.ss.usermodel.*
 
 /**

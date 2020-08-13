@@ -1,7 +1,6 @@
 package no.nav.pensjon.innsyn.service.map
 
-import no.nav.pensjon.innsyn.domain.*
-import no.nav.pensjon.innsyn.domain.source.*
+import no.nav.pensjon.innsyn.domain.popp.*
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
 
@@ -9,7 +8,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets Beholdning values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: Beholdning = DomainObjects.beholdning.first()
+        val source: Beholdning = PoppObjects.beholdning.first()
         DomainRowFiller(Beholdning::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "01.01.01")
         verify(sink, times(1)).setCellValue(1, "31.12.29")
@@ -44,7 +43,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets Dagpenger values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: Dagpenger = DomainObjects.dagpenger.first()
+        val source: Dagpenger = PoppObjects.dagpenger.first()
         DomainRowFiller(Dagpenger::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, 123456.78)
         verify(sink, times(1)).setCellValue(1, 123456.78)
@@ -60,7 +59,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets Forstegangstjeneste values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: Forstegangstjeneste = DomainObjects.forstegangstjeneste.first()
+        val source: Forstegangstjeneste = PoppObjects.forstegangstjeneste.first()
         DomainRowFiller(Forstegangstjeneste::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "tjenestestart")
         verify(sink, times(1)).setCellValue(1, "dimittert")
@@ -72,7 +71,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets FppAfp values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: FppAfp = DomainObjects.fppAfp.first()
+        val source: FppAfp = PoppObjects.fppAfp.first()
         DomainRowFiller(FppAfp::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "status")
         verify(sink, times(1)).setCellValue(1, 123456.78)
@@ -85,7 +84,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets Inntekt values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: Inntekt = DomainObjects.inntekt.first()
+        val source: Inntekt = PoppObjects.inntekt.first()
         DomainRowFiller(Inntekt::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "type")
         verify(sink, times(1)).setCellValue(1, "status")
@@ -98,7 +97,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets Omsorg values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: Omsorg = DomainObjects.omsorg.first()
+        val source: Omsorg = PoppObjects.omsorg.first()
         DomainRowFiller(Omsorg::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, 2018.0)
         verify(sink, times(1)).setCellValue(1, "kilde1")
@@ -109,7 +108,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets Opptjening values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: Opptjening = DomainObjects.opptjening.first()
+        val source: Opptjening = PoppObjects.opptjening.first()
         DomainRowFiller(Opptjening::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "type")
         verify(sink, times(1)).setCellValue(1, "status")

@@ -9,7 +9,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets Beholdning values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: Beholdning = HardcodedBeholdning().entities.first()
+        val source: Beholdning = DomainObjects.beholdning.first()
         DomainRowFiller(Beholdning::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "01.01.01")
         verify(sink, times(1)).setCellValue(1, "31.12.29")
@@ -44,7 +44,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets Dagpenger values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: Dagpenger = HardcodedDagpenger().entities.first()
+        val source: Dagpenger = DomainObjects.dagpenger.first()
         DomainRowFiller(Dagpenger::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, 123456.78)
         verify(sink, times(1)).setCellValue(1, 123456.78)
@@ -60,7 +60,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets Forstegangstjeneste values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: Forstegangstjeneste = HardcodedForstegangstjeneste().entities.first()
+        val source: Forstegangstjeneste = DomainObjects.forstegangstjeneste.first()
         DomainRowFiller(Forstegangstjeneste::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "tjenestestart")
         verify(sink, times(1)).setCellValue(1, "dimittert")
@@ -72,7 +72,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets FppAfp values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: FppAfp = HardcodedFppAfp().entities.first()
+        val source: FppAfp = DomainObjects.fppAfp.first()
         DomainRowFiller(FppAfp::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "status")
         verify(sink, times(1)).setCellValue(1, 123456.78)
@@ -85,7 +85,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets Inntekt values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: Inntekt = HardcodedInntekt().entities.first()
+        val source: Inntekt = DomainObjects.inntekt.first()
         DomainRowFiller(Inntekt::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "type")
         verify(sink, times(1)).setCellValue(1, "status")
@@ -98,7 +98,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets Omsorg values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: Omsorg = HardcodedOmsorg().entities.first()
+        val source: Omsorg = DomainObjects.omsorg.first()
         DomainRowFiller(Omsorg::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, 2018.0)
         verify(sink, times(1)).setCellValue(1, "kilde1")
@@ -109,7 +109,7 @@ class DomainRowFillerTest {
     @Test
     fun `Sets Opptjening values`() {
         val sink = mock(CellValueSetter::class.java)
-        val source: Opptjening = HardcodedOpptjening().entities.first()
+        val source: Opptjening = DomainObjects.opptjening.first()
         DomainRowFiller(Opptjening::class).setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "type")
         verify(sink, times(1)).setCellValue(1, "status")

@@ -11,12 +11,17 @@ spec:
   ingresses:
     - https://pensjon-pol-innsyn.nais.preprod.local
   liveness:
-    path: /isAlive
+    path: isAlive
   readiness:
-    path: /isReady
+    path: isReady
   webproxy: true
   vault:
     enabled: true
+    paths:
+      - mountPath: /secrets/oracle/tp-registeret
+        kvPath: oracle/data/prod/creds/tjenestepensjon-user
+      - mountPath: /secrets/oracle/popp
+        kvPath: oracle/data/prod/creds/popp-user
   replicas:
     min: 1
     max: 1

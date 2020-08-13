@@ -20,11 +20,16 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
+    implementation("io.micrometer","micrometer-registry-prometheus","1.1.5")
+    implementation("net.logstash.logback","logstash-logback-encoder","6.2")
     implementation("no.nav.security","token-validation-spring", "1.2.0")
-    implementation ("org.apache.poi","poi-ooxml","4.1.0")
-    implementation ("org.springframework.boot","spring-boot-starter-web")
+    implementation("org.apache.poi","poi-ooxml","4.1.0")
+    implementation("org.springframework.boot","spring-boot-starter-actuator")
+    implementation("org.springframework.boot","spring-boot-starter-web")
     implementation("org.springframework.boot","spring-boot-starter-jdbc")
     implementation("org.springframework.boot","spring-boot-starter-data-jpa")
+    testImplementation(kotlin("test-junit5"))
+    testImplementation("no.nav.security","token-validation-test-support", "1.2.0")
     testImplementation("org.springframework.boot","spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }

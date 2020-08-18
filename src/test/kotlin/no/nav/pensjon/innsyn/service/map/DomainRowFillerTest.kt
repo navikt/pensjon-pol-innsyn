@@ -9,7 +9,7 @@ class DomainRowFillerTest {
     fun `Sets Beholdning values`() {
         val sink = mock(CellValueSetter::class.java)
         val source: Beholdning = PoppObjects.beholdning.first()
-        DomainRowFiller(Beholdning::class).setCellValues(sink, source)
+        DomainRowFiller<Beholdning>().setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "01.01.01")
         verify(sink, times(1)).setCellValue(1, "31.12.29")
         verify(sink, times(1)).setCellValue(2, 1.23)
@@ -44,7 +44,7 @@ class DomainRowFillerTest {
     fun `Sets Dagpenger values`() {
         val sink = mock(CellValueSetter::class.java)
         val source: Dagpenger = PoppObjects.dagpenger.first()
-        DomainRowFiller(Dagpenger::class).setCellValues(sink, source)
+        DomainRowFiller<Dagpenger>().setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, 123456.78)
         verify(sink, times(1)).setCellValue(1, 123456.78)
         verify(sink, times(1)).setCellValue(2, 123456.78)
@@ -60,7 +60,7 @@ class DomainRowFillerTest {
     fun `Sets Forstegangstjeneste values`() {
         val sink = mock(CellValueSetter::class.java)
         val source: Forstegangstjeneste = PoppObjects.forstegangstjeneste.first()
-        DomainRowFiller(Forstegangstjeneste::class).setCellValues(sink, source)
+        DomainRowFiller<Forstegangstjeneste>().setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "tjenestestart")
         verify(sink, times(1)).setCellValue(1, "dimittert")
         verify(sink, times(1)).setCellValue(2, "rapporttype")
@@ -72,7 +72,7 @@ class DomainRowFillerTest {
     fun `Sets FppAfp values`() {
         val sink = mock(CellValueSetter::class.java)
         val source: FppAfp = PoppObjects.fppAfp.first()
-        DomainRowFiller(FppAfp::class).setCellValues(sink, source)
+        DomainRowFiller<FppAfp>().setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "status")
         verify(sink, times(1)).setCellValue(1, 123456.78)
         verify(sink, times(1)).setCellValue(2, "gjelderFom")
@@ -85,7 +85,7 @@ class DomainRowFillerTest {
     fun `Sets Inntekt values`() {
         val sink = mock(CellValueSetter::class.java)
         val source: Inntekt = PoppObjects.inntekt.first()
-        DomainRowFiller(Inntekt::class).setCellValues(sink, source)
+        DomainRowFiller<Inntekt>().setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "type")
         verify(sink, times(1)).setCellValue(1, "status")
         verify(sink, times(1)).setCellValue(2, 2019.0)
@@ -98,7 +98,7 @@ class DomainRowFillerTest {
     fun `Sets Omsorg values`() {
         val sink = mock(CellValueSetter::class.java)
         val source: Omsorg = PoppObjects.omsorg.first()
-        DomainRowFiller(Omsorg::class).setCellValues(sink, source)
+        DomainRowFiller<Omsorg>().setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, 2018.0)
         verify(sink, times(1)).setCellValue(1, "kilde1")
         verify(sink, times(1)).setCellValue(2, "type1")
@@ -109,7 +109,7 @@ class DomainRowFillerTest {
     fun `Sets Opptjening values`() {
         val sink = mock(CellValueSetter::class.java)
         val source: Opptjening = PoppObjects.opptjening.first()
-        DomainRowFiller(Opptjening::class).setCellValues(sink, source)
+        DomainRowFiller<Opptjening>().setCellValues(sink, source)
         verify(sink, times(1)).setCellValue(0, "type")
         verify(sink, times(1)).setCellValue(1, "status")
         verify(sink, times(1)).setCellValue(2, 2019.0)

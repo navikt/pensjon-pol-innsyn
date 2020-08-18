@@ -1,7 +1,6 @@
 package no.nav.pensjon.innsyn.domain.popp.container
 
 import no.nav.pensjon.innsyn.domain.popp.Inntekt
-import no.nav.pensjon.innsyn.service.map.DomainRowFiller
 import no.nav.pensjon.innsyn.repository.popp.InntektRepository
 import org.springframework.stereotype.Component
 
@@ -15,6 +14,5 @@ class InntektContainer(repository: InntektRepository) : PoppContainer<Inntekt>("
                 "Rapportdato",
                 "Kilde"
         ),
-        repository,
-        DomainRowFiller(Inntekt::class)::setCellValues
+        repository
 )

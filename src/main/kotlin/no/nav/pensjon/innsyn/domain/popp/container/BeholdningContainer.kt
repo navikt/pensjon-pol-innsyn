@@ -1,7 +1,6 @@
 package no.nav.pensjon.innsyn.domain.popp.container
 
 import no.nav.pensjon.innsyn.domain.popp.Beholdning
-import no.nav.pensjon.innsyn.service.map.DomainRowFiller
 import no.nav.pensjon.innsyn.repository.popp.BeholdningRepository
 import org.springframework.stereotype.Component
 
@@ -37,6 +36,5 @@ class BeholdningContainer(repository: BeholdningRepository) : PoppContainer<Beho
                 "Regulering, beløp",
                 "Regulering, dato"
         ),
-        repository,
-        DomainRowFiller(Beholdning::class)::setCellValues
+        repository
 )

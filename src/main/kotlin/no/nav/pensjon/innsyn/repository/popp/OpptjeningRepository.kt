@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface OpptjeningRepository : DomainRepository<Opptjening> {
-    fun findAllByPersonIdOrderByOpptjeningsarAscStatus(id: Int): List<Opptjening>
-    override fun findAllByPersonId(id: Int): List<Opptjening> = findAllByPersonIdOrderByOpptjeningsarAscStatus(id)
+    fun findAllByPersonIdOrderByOpptjeningsarAscOpptjeningStatus(id: Int): List<Opptjening>
+    override fun findAllByPersonId(id: Int): List<Opptjening> = findAllByPersonIdOrderByOpptjeningsarAscOpptjeningStatus(id)
 }

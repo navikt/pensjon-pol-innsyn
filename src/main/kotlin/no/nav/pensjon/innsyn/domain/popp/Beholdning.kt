@@ -1,78 +1,102 @@
 package no.nav.pensjon.innsyn.domain.popp
 
+import no.nav.pensjon.innsyn.domain.Domain
+import no.nav.pensjon.innsyn.domain.popp.support.*
+import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
 @Table(name = "T_BEHOLDNING")
-@SecondaryTables(
-        SecondaryTable(name = "T_K_BEHOLDNING_T", pkJoinColumns = [PrimaryKeyJoinColumn(name = "K_BEHOLDNING_T")]),
-        SecondaryTable(name = "T_K_BEHOLDNING_S", pkJoinColumns = [PrimaryKeyJoinColumn(name = "K_BEHOLDNING_S")]),
-        SecondaryTable(name = "T_INNTEKT_OPPTJ", pkJoinColumns = [PrimaryKeyJoinColumn(name = "INNTEKT_OPPTJ_ID")]),
-        SecondaryTable(name = "T_F_TJEN_OPPTJ", pkJoinColumns = [PrimaryKeyJoinColumn(name = "F_TJEN_OPPTJ_ID")]),
-        SecondaryTable(name = "T_DAGPENGER_OPPTJ", pkJoinColumns = [PrimaryKeyJoinColumn(name = "DAGPENGER_OPPTJ_ID")]),
-        SecondaryTable(name = "T_OMSORG_OPPTJ", pkJoinColumns = [PrimaryKeyJoinColumn(name = "OMSORG_OPPTJ_ID")]),
-        SecondaryTable(name = "T_UFORE_OPPTJ", pkJoinColumns = [PrimaryKeyJoinColumn(name = "UFORE_OPPTJ_ID")]),
-        SecondaryTable(name = "T_LONN_VEKST_REG", pkJoinColumns = [PrimaryKeyJoinColumn(name = "LONNSVEKST_REG_ID")])
-)
 data class Beholdning(
+        @Id
+        @Column(name = "PERSON_ID")
+        private val personId: Int,
         @Column(name = "DATO_FOM")
-        val datoFom: String,
+        val datoFom: LocalDate,
         @Column(name = "DATO_TOM")
-        val datoTom: String,
+        val datoTom: LocalDate,
         @Column(name = "BELOP")
         val belop: Double,
-        @Column(name = "DEKODE", table = "T_K_BEHOLDNING_T")
-        val beholdningstype: String,
-        @Column(name = "DEKODE", table = "T_K_BEHOLDNING_S")
-        val status: String,
         @Column(name = "BEH_GRLAG")
         val grunnlag: Double,
         @Column(name = "BEH_GRLAG_AVKORTET")
         val grunnlagAvkortet: Double,
         @Column(name = "BEH_INNSKUDD")
         val innskudd: Double,
-        @Column(name = "AR", table = "T_INNTEKT_OPPTJ")
-        val inntektsar: Int,
-        @Column(name = "BELOP", table = "T_INNTEKT_OPPTJ")
-        val inntektsgrunnlag: Double,
-        @Column(name = "AR", table = "T_F_TJEN_OPPTJ")
-        val forstegangstjenesteAr: Int,
-        @Column(name = "BELOP_ORDINAR", table = "T_DAGPENGER_OPPTJ")
-        val ordinareDagpenger: Double,
-        @Column(name = "AR", table = "T_DAGPENGER_OPPTJ")
-        val dagpengerAr: Int,
-        @Column(name = "BELOP_FISKERE", table = "T_DAGPENGER_OPPTJ")
-        val dagpengerFisker: Double,
-        @Column(name = "AR", table = "T_OMSORG_OPPTJ")
-        val omsorgAr: Int,
-        @Column(name = "BELOP", table = "T_OMSORG_OPPTJ")
-        val omsorgBelop: Double,
-        @Column(name = "OMS_OPPTJ_INNSKUDD", table = "T_OMSORG_OPPTJ")
-        val omsorgInnskudd: Double,
-        @Column(name = "BELOP", table = "T_UFORE_OPPTJ")
-        val uforeBelop: Double,
-        @Column(name = "AR", table = "T_UFORE_OPPTJ")
-        val uforeAr: Int,
-        @Column(name = "UFG", table = "T_UFORE_OPPTJ")
-        val uforegrad: Double,
-        @Column(name = "YUG", table = "T_UFORE_OPPTJ")
-        val uforeYrkesskadegrad: Double,
-        @Column(name = "ANTATT_INNTEKT_YRKE", table = "T_UFORE_OPPTJ")
-        val uforeAntattInntektYrke: Double,
-        @Column(name = "YRKESSKADE", table = "T_UFORE_OPPTJ", columnDefinition = "INT(1)")
-        val uforeYrkesskade: Boolean,
-        @Column(name = "UFORETRYGD", table = "T_UFORE_OPPTJ", columnDefinition = "INT(1)")
-        val uforeUforetrygd: Boolean,
-        @Column(name = "UFOREAR", table = "T_UFORE_OPPTJ", columnDefinition = "INT(1)")
-        val uforeUforeAr: Boolean,
-        @Column(name = "ANTATT_INNTEKT", table = "T_UFORE_OPPTJ")
-        val uforeAntattInntekt: Double,
-        @Column(name = "REGULERINGSBELOP", table = "T_LONN_VEKST_REG")
-        val reguleringBelop: Double,
-        @Column(name = "REGULERING_DATO", table = "T_LONN_VEKST_REG")
-        val reguleringDato: String
-) {
-    @Id
-    @Column(name = "PERSON_ID")
-    var personId: Int? = null
+        @ManyToOne
+        @JoinColumn(name = "K_BEHOLDNING_T")
+        private val beholdningType: BeholdningType,
+        @ManyToOne
+        @JoinColumn(name = "K_BEHOLDNING_S")
+        private val beholdningStatus: BeholdningStatus,
+        @ManyToOne
+        @JoinColumn(name = "INNTEKT_OPPTJ_ID")
+        private val inntektOpptj: InntektOpptj,
+        @ManyToOne
+        @JoinColumn(name = "F_TJEN_OPPTJ_ID")
+        private val fTjenOpptj: FTjenOpptj,
+        @ManyToOne
+        @JoinColumn(name = "DAGPENGER_OPPTJ_ID")
+        var dagpengerOpptj: DagpengerOpptj,
+        @ManyToOne
+        @JoinColumn(name = "OMSORG_OPPTJ_ID")
+        var omsorgOpptj: OmsorgOpptj,
+        @ManyToOne
+        @JoinColumn(name = "UFORE_OPPTJ_ID")
+        var uforeOpptj: UforeOpptj,
+        @ManyToOne
+        @JoinColumn(name = "LONNSVEKST_REG_ID")
+        var lonnsvekstReg: LonnsvekstReg
+) : Domain {
+    @Transient
+    val beholdningstype = beholdningType.dekode
+    @Transient
+    val status = beholdningStatus.dekode
+    @Transient
+    val inntektsar = inntektOpptj.ar
+    @Transient
+    val inntektsgrunnlag = inntektOpptj.belop
+    @Transient
+    val forstegangstjenesteAr = fTjenOpptj.ar
+    @Transient
+    val ordinareDagpenger = dagpengerOpptj.belopOrdinar
+    @Transient
+    val dagpengerAr = dagpengerOpptj.ar
+    @Transient
+    val dagpengerFisker = dagpengerOpptj.belopFiskere
+    @Transient
+    val omsorgAr = omsorgOpptj.ar
+    @Transient
+    val omsorgBelop = omsorgOpptj.belop
+    @Transient
+    val omsorgInnskudd = omsorgOpptj.inskudd
+    @Transient
+    val uforeBelop = uforeOpptj.belop
+    @Transient
+    val uforeAr = uforeOpptj.ar
+    @Transient
+    val uforegrad = uforeOpptj.ufg
+    @Transient
+    val uforeYrkesskadegrad = uforeOpptj.yug
+    @Transient
+    val uforeAntattInntektYrke = uforeOpptj.antattInntektYrke
+    @Transient
+    val uforeYrkesskade = uforeOpptj.yrkesskade
+    @Transient
+    val uforeUforetrygd = uforeOpptj.uforetrygd
+    @Transient
+    val uforeUforeAr = uforeOpptj.uforear
+    @Transient
+    val uforeAntattInntekt = uforeOpptj.antattInntekt
+    @Transient
+    val reguleringBelop = lonnsvekstReg.belop
+    @Transient
+    val reguleringDato = lonnsvekstReg.dato
+
+    @Transient
+    override val fields = setOf(::datoFom, ::datoTom, ::belop, ::beholdningstype, ::status, ::grunnlag,
+            ::grunnlagAvkortet, ::innskudd, ::inntektsar, ::inntektsgrunnlag, ::forstegangstjenesteAr,
+            ::ordinareDagpenger, ::dagpengerAr, ::dagpengerFisker, ::omsorgAr, ::omsorgBelop, ::omsorgInnskudd,
+            ::uforeBelop, ::uforeAr, ::uforegrad, ::uforeYrkesskadegrad, ::uforeAntattInntektYrke, ::uforeYrkesskade,
+            ::uforeUforetrygd, ::uforeUforeAr, ::uforeAntattInntekt, ::reguleringBelop, ::reguleringDato)
 }

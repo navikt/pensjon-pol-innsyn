@@ -1,5 +1,6 @@
 package no.nav.pensjon.innsyn.service.map
 
+import no.nav.pensjon.innsyn.domain.Domain
 import no.nav.pensjon.innsyn.domain.DomainContainer
 import org.apache.poi.ss.usermodel.*
 
@@ -7,7 +8,7 @@ import org.apache.poi.ss.usermodel.*
  * Adapted from
  * https://www.callicoder.com/java-write-excel-file-apache-poi/
  */
-class SheetFiller<T> internal constructor(
+class SheetFiller<T: Domain> internal constructor(
         private val container: DomainContainer<T>
 ) {
     private val sheetName = container.entityName

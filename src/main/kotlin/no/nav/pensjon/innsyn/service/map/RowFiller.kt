@@ -2,7 +2,7 @@ package no.nav.pensjon.innsyn.service.map
 
 import org.apache.poi.ss.usermodel.CellStyle
 import org.apache.poi.ss.usermodel.Sheet
-import java.util.*
+import java.time.LocalDate
 
 class RowFiller internal constructor(sheet: Sheet, private val dateCellStyle: CellStyle, rowIndex: Int) : CellValueSetter {
     private val row = sheet.createRow(rowIndex)
@@ -18,12 +18,15 @@ class RowFiller internal constructor(sheet: Sheet, private val dateCellStyle: Ce
         row.createCell(cellIndex).setCellValue(value)
     }
 
-    override fun setCellValue(cellIndex: Int, value: Date) {
-        createDateCell(cellIndex).setCellValue(value)
+    override fun setCellValue(cellIndex: Int, value: LocalDate) {
+        createDateCell(cellIndex).setCellValue(value.run {
+            dayOfMonth.toString().padStart(2, '0') +
+                    ".${monthValue.toString().padStart(2, '0')}." +
+                    year.toString().takeLast(2)
+        })
     }
 
     private fun createCell(cellIndex: Int) = row.createCell(cellIndex)
 
     private fun createDateCell(cellIndex: Int) = createCell(cellIndex).apply { cellStyle = dateCellStyle }
-
 }

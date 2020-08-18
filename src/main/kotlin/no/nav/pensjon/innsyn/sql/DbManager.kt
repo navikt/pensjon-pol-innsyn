@@ -3,7 +3,7 @@ package no.nav.pensjon.innsyn.sql
 import no.nav.pensjon.innsyn.env.EnvironmentException
 
 internal object DbManager {
-    private class DbUrl(internal val dbmsId: String, internal val url: String)
+    private class DbUrl(val dbmsId: String, val url: String)
 
     private const val ENVIRONMENT_VARIABLE_PREFIX = "POPP_"
     private const val ORACLE_FORMAT = "jdbc:oracle:thin:%s/%s@//%s:%s/%s"
@@ -24,9 +24,6 @@ internal object DbManager {
             USERNAME,
             PASSWORD))
     private val URLS = listOf(ORACLE, POSTGRES)
-
-    val urlFromEnvironment: String
-        get() = getUrl(getEnvironmentVariable(ENVIRONMENT_VARIABLE_PREFIX + "DBMS"))
 
     private fun getEnvironmentVariable(name: String) = try {
         System.getenv(name)

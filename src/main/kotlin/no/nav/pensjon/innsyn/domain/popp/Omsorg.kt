@@ -33,5 +33,5 @@ data class Omsorg(
     @Transient
     val status = omsorgStatus.dekode
     @Transient
-    override val fields = setOf(::kilde, ::type, ::status, ::ar)
+    override val fields = setOf(::ar, ::kilde, ::type, ::status)
 }

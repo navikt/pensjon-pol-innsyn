@@ -25,13 +25,20 @@ data class Omsorg(
         @JoinColumn(name = "K_OMSORG_S")
         val omsorgStatus: OmsorgStatus
 
-        ): Domain {
-    @Transient
-    val kilde = kildeType.dekode
-    @Transient
-    val type = omsorgType.dekode
-    @Transient
-    val status = omsorgStatus.dekode
-    @Transient
-    override val fields = setOf(::ar, ::kilde, ::type, ::status)
+) : Domain {
+    @get:Transient
+    val kilde
+        get() = kildeType.dekode
+
+    @get:Transient
+    val type
+        get() = omsorgType.dekode
+
+    @get:Transient
+    val status
+        get() = omsorgStatus.dekode
+
+    @get:Transient
+    override val fields
+        get() = setOf(::ar, ::kilde, ::type, ::status)
 }

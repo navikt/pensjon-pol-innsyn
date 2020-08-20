@@ -29,11 +29,16 @@ data class Opptjening(
         @ManyToOne
         @JoinColumn(name = "K_OPPTJN_STATUS")
         private val opptjeningStatus: OpptjeningStatus
-): Domain {
-    @field:Transient
-    val type = opptjeningType.dekode
-    @field:Transient
-    val status = opptjeningStatus.dekode
-    @field:Transient
-    override val fields = setOf(::type, ::status, ::opptjeningsar, ::pensjonsgivendeInntekt, ::poeng, ::uforegrad)
+) : Domain {
+    @get:Transient
+    val type
+        get() = opptjeningType.dekode
+
+    @get:Transient
+    val status
+        get() = opptjeningStatus.dekode
+
+    @get:Transient
+    override val fields
+        get() = setOf(::type, ::status, ::opptjeningsar, ::pensjonsgivendeInntekt, ::poeng, ::uforegrad)
 }

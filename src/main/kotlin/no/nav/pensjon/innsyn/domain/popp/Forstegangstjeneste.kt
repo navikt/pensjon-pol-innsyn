@@ -26,13 +26,20 @@ data class Forstegangstjeneste(
         @ManyToOne
         @JoinColumn(name = "K_KILDE_T")
         private val kildeType: KildeType
-): Domain {
-    @Transient
-    val rapporttype = rapportType.dekode
-    @Transient
-    val status = fTjenStatus.dekode
-    @Transient
-    val kilde = kildeType.dekode
-    @Transient
-    override val fields = setOf(::tjenestestart, ::dimittert, ::rapporttype, ::status, ::kilde)
+) : Domain {
+    @get:Transient
+    val rapporttype
+        get() = rapportType.dekode
+
+    @get:Transient
+    val status
+        get() = fTjenStatus.dekode
+
+    @get:Transient
+    val kilde
+        get() = kildeType.dekode
+
+    @get:Transient
+    override val fields
+        get() = setOf(::tjenestestart, ::dimittert, ::rapporttype, ::status, ::kilde)
 }

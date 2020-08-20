@@ -6,7 +6,6 @@ import no.nav.pensjon.innsyn.domain.popp.support.DagpengerType
 import no.nav.pensjon.innsyn.domain.popp.support.KildeType
 import no.nav.pensjon.innsyn.domain.popp.support.RapportType
 import javax.persistence.*
-import kotlin.jvm.Transient
 
 @Entity
 @Table(name = "T_DAGPENGER")
@@ -38,19 +37,24 @@ data class Dagpenger(
         private val rapportType: RapportType
 
 ) : Domain {
-    @Transient
-    val kilde = kildeType.dekode
+    @get:Transient
+    val kilde
+        get() = kildeType.dekode
 
-    @Transient
-    val status = dagpengerStatus.dekode
+    @get:Transient
+    val status
+        get() = dagpengerStatus.dekode
 
-    @Transient
-    val type = dagpengerType.dekode
+    @get:Transient
+    val type
+        get() = dagpengerType.dekode
 
-    @Transient
-    val rapporttype = rapportType.dekode
+    @get:Transient
+    val rapporttype
+        get() = rapportType.dekode
 
-    @Transient
-    override val fields = setOf(::ferietillegg, ::barnetillegg, ::dagpenger, ::uavkortetGrunnlag, ::arDagpengerUtbetalt,
-            ::kilde, ::status, ::type, ::rapporttype)
+    @get:Transient
+    override val fields
+        get() = setOf(::ferietillegg, ::barnetillegg, ::dagpenger, ::uavkortetGrunnlag, ::arDagpengerUtbetalt,
+                ::kilde, ::status, ::type, ::rapporttype)
 }

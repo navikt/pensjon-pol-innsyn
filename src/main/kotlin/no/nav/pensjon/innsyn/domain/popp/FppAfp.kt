@@ -29,9 +29,12 @@ data class FppAfp(
         val afpPensjonsgrad: Double,
         @Column(name = "AFP_TYPE")
         val afpType: String
-): Domain {
-    @Transient
-    val status = fppAfpStatus.dekode
-    @Transient
-    override val fields = setOf(::status, ::fppAfp, ::gjelderFom, ::gjelderTom, ::afpPensjonsgrad, ::afpType)
+) : Domain {
+    @get:Transient
+    val status
+        get() = fppAfpStatus.dekode
+
+    @get:Transient
+    override val fields
+        get() = setOf(::status, ::fppAfp, ::gjelderFom, ::gjelderTom, ::afpPensjonsgrad, ::afpType)
 }

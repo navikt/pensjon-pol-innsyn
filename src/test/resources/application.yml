@@ -4,8 +4,6 @@ spring:
     driverClassName: org.h2.Driver
     continue-on-error: true
     initialization-mode: embedded
-    schema: schema.sql
-    data: data.sql
   jpa:
     database-platform: org.hibernate.dialect.Oracle10gDialect
     hibernate.ddl-auto: none

@@ -10,7 +10,8 @@ class WorksheetProducer(
         vararg val poppContainers: PoppContainer<*>
 ) {
     fun producePOPPWorksheet(pid: Int) = XSSFWorkbook().apply {
-        poppContainers.map { SheetFiller(it) }.forEach {
+        poppContainers.map { SheetFiller(it) }.apply {
+        }.forEach {
             it.populateSheet(pid, this)
         }
         close()

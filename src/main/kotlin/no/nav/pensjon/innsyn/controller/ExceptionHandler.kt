@@ -30,7 +30,7 @@ class ExceptionHandler {
         val LOG: Logger = LoggerFactory.getLogger(ExceptionHandler::class.java)
         val errorCounter: Counter = Counter.build()
                 .help("Interne feil kastet av POL-innsyn.")
-                .namespace("pol-innsyn")
+                .namespace("pol_innsyn")
                 .name("internal_server_errors_total")
                 .labelNames("cause")
                 .register()

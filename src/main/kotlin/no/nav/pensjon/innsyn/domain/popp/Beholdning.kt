@@ -48,55 +48,99 @@ data class Beholdning(
         @JoinColumn(name = "LONNSVEKST_REG_ID")
         var lonnsvekstReg: LonnsvekstReg
 ) : Domain {
-    @Transient
-    val beholdningstype = beholdningType.dekode
-    @Transient
-    val status = beholdningStatus.dekode
-    @Transient
-    val inntektsar = inntektOpptj.ar
-    @Transient
-    val inntektsgrunnlag = inntektOpptj.belop
-    @Transient
-    val forstegangstjenesteAr = fTjenOpptj.ar
-    @Transient
-    val ordinareDagpenger = dagpengerOpptj.belopOrdinar
-    @Transient
-    val dagpengerAr = dagpengerOpptj.ar
-    @Transient
-    val dagpengerFisker = dagpengerOpptj.belopFiskere
-    @Transient
-    val omsorgAr = omsorgOpptj.ar
-    @Transient
-    val omsorgBelop = omsorgOpptj.belop
-    @Transient
-    val omsorgInnskudd = omsorgOpptj.inskudd
-    @Transient
-    val uforeBelop = uforeOpptj.belop
-    @Transient
-    val uforeAr = uforeOpptj.ar
-    @Transient
-    val uforegrad = uforeOpptj.ufg
-    @Transient
-    val uforeYrkesskadegrad = uforeOpptj.yug
-    @Transient
-    val uforeAntattInntektYrke = uforeOpptj.antattInntektYrke
-    @Transient
-    val uforeYrkesskade = uforeOpptj.yrkesskade
-    @Transient
-    val uforeUforetrygd = uforeOpptj.uforetrygd
-    @Transient
-    val uforeUforeAr = uforeOpptj.uforear
-    @Transient
-    val uforeAntattInntekt = uforeOpptj.antattInntekt
-    @Transient
-    val reguleringBelop = lonnsvekstReg.belop
-    @Transient
-    val reguleringDato = lonnsvekstReg.dato
+    @get:Transient
+    val beholdningstype
+        get() = beholdningType.dekode
 
-    @Transient
-    override val fields = setOf(::datoFom, ::datoTom, ::belop, ::beholdningstype, ::status, ::grunnlag,
-            ::grunnlagAvkortet, ::innskudd, ::inntektsar, ::inntektsgrunnlag, ::forstegangstjenesteAr,
-            ::ordinareDagpenger, ::dagpengerAr, ::dagpengerFisker, ::omsorgAr, ::omsorgBelop, ::omsorgInnskudd,
-            ::uforeBelop, ::uforeAr, ::uforegrad, ::uforeYrkesskadegrad, ::uforeAntattInntektYrke, ::uforeYrkesskade,
-            ::uforeUforetrygd, ::uforeUforeAr, ::uforeAntattInntekt, ::reguleringBelop, ::reguleringDato)
+    @get:Transient
+    val status
+        get() = beholdningStatus.dekode
+
+    @get:Transient
+    val inntektsar
+        get() = inntektOpptj.ar
+
+    @get:Transient
+    val inntektsgrunnlag
+        get() = inntektOpptj.belop
+
+    @get:Transient
+    val forstegangstjenesteAr
+        get() = fTjenOpptj.ar
+
+    @get:Transient
+    val ordinareDagpenger
+        get() = dagpengerOpptj.belopOrdinar
+
+    @get:Transient
+    val dagpengerAr
+        get() = dagpengerOpptj.ar
+
+    @get:Transient
+    val dagpengerFisker
+        get() = dagpengerOpptj.belopFiskere
+
+    @get:Transient
+    val omsorgAr
+        get() = omsorgOpptj.ar
+
+    @get:Transient
+    val omsorgBelop
+        get() = omsorgOpptj.belop
+
+    @get:Transient
+    val omsorgInnskudd
+        get() = omsorgOpptj.inskudd
+
+    @get:Transient
+    val uforeBelop
+        get() = uforeOpptj.belop
+
+    @get:Transient
+    val uforeAr
+        get() = uforeOpptj.ar
+
+    @get:Transient
+    val uforegrad
+        get() = uforeOpptj.ufg
+
+    @get:Transient
+    val uforeYrkesskadegrad
+        get() = uforeOpptj.yug
+
+    @get:Transient
+    val uforeAntattInntektYrke
+        get() = uforeOpptj.antattInntektYrke
+
+    @get:Transient
+    val uforeYrkesskade
+        get() = uforeOpptj.yrkesskade
+
+    @get:Transient
+    val uforeUforetrygd
+        get() = uforeOpptj.uforetrygd
+
+    @get:Transient
+    val uforeUforeAr
+        get() = uforeOpptj.uforear
+
+    @get:Transient
+    val uforeAntattInntekt
+        get() = uforeOpptj.antattInntekt
+
+    @get:Transient
+    val reguleringBelop
+        get() = lonnsvekstReg.belop
+
+    @get:Transient
+    val reguleringDato
+        get() = lonnsvekstReg.dato
+
+    @get:Transient
+    override val fields
+        get() = setOf(::datoFom, ::datoTom, ::belop, ::beholdningstype, ::status, ::grunnlag,
+                ::grunnlagAvkortet, ::innskudd, ::inntektsar, ::inntektsgrunnlag, ::forstegangstjenesteAr,
+                ::ordinareDagpenger, ::dagpengerAr, ::dagpengerFisker, ::omsorgAr, ::omsorgBelop, ::omsorgInnskudd,
+                ::uforeBelop, ::uforeAr, ::uforegrad, ::uforeYrkesskadegrad, ::uforeAntattInntektYrke, ::uforeYrkesskade,
+                ::uforeUforetrygd, ::uforeUforeAr, ::uforeAntattInntekt, ::reguleringBelop, ::reguleringDato)
 }

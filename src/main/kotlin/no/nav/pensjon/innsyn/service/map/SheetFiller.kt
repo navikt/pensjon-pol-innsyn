@@ -8,7 +8,7 @@ import org.apache.poi.ss.usermodel.*
  * Adapted from
  * https://www.callicoder.com/java-write-excel-file-apache-poi/
  */
-class SheetFiller<T: Domain> internal constructor(
+class SheetFiller<T : Domain> internal constructor(
         private val container: DomainContainer<T>
 ) {
     private val sheetName = container.entityName
@@ -30,13 +30,9 @@ class SheetFiller<T: Domain> internal constructor(
         createCells(sheet.createRow(0), cellStyle)
     }
 
-    private fun createCells(row: Row, cellStyle: CellStyle) {
-        (0..columns.size).forEach { createCell(row, it, cellStyle) }
-    }
-
-    private fun createCell(row: Row, index: Int, style: CellStyle) {
-        row.createCell(index).apply {
-            setCellValue(columns[index])
+    private fun createCells(row: Row, style: CellStyle) = columns.forEachIndexed { i, o ->
+        row.createCell(i).apply {
+            setCellValue(o)
             cellStyle = style
         }
     }

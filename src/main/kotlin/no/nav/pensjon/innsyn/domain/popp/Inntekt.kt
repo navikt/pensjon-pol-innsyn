@@ -28,13 +28,20 @@ data class Inntekt(
         @ManyToOne
         @JoinColumn(name = "K_Kilde_T")
         val kildeType: KildeType
-): Domain {
-    @Transient
-    val type = inntektType.dekode
-    @Transient
-    val status = inntektStatus.dekode
-    @Transient
-    val kilde = kildeType.dekode
-    @Transient
-    override val fields = setOf(::type, ::status, ::inntektsar, ::belop, ::rapportdato, ::kilde)
+) : Domain {
+    @get:Transient
+    val type
+        get() = inntektType.dekode
+
+    @get:Transient
+    val status
+        get() = inntektStatus.dekode
+
+    @get:Transient
+    val kilde
+        get() = kildeType.dekode
+
+    @get:Transient
+    override val fields
+        get() = setOf(::type, ::status, ::inntektsar, ::belop, ::rapportdato, ::kilde)
 }

@@ -3,7 +3,6 @@ package no.nav.pensjon.innsyn.service.map
 import no.nav.pensjon.innsyn.domain.popp.*
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
-import org.springframework.context.annotation.Profile
 import java.time.LocalDate
 
 class DomainRowFillerTest {

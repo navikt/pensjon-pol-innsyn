@@ -1,8 +1,7 @@
 package no.nav.pensjon.innsyn.service
 
-import no.nav.pensjon.innsyn.service.map.SheetFiller
 import no.nav.pensjon.innsyn.domain.popp.container.PoppContainer
-import org.apache.poi.xssf.streaming.SXSSFWorkbook
+import no.nav.pensjon.innsyn.service.map.SheetFiller
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.springframework.stereotype.Service
 

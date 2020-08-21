@@ -5,27 +5,24 @@ import no.nav.pensjon.innsyn.domain.popp.container.*
 import no.nav.pensjon.innsyn.repository.popp.*
 import org.apache.poi.xssf.usermodel.XSSFCell
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Profile
-import org.springframework.test.web.servlet.MockMvc
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileOutputStream
 
+@Profile("test")
+@TestInstance(PER_CLASS)
 @SpringBootTest(classes = [WorksheetProducer::class, BeholdningContainer::class, DagpengerContainer::class,
     ForstegangstjenesteContainer::class, FppAfpContainer::class, InntektContainer::class, OmsorgContainer::class,
     OpptjeningContainer::class])
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Profile("!test")
 internal class WorksheetProducerTest {
     @MockBean
     lateinit var beholdningRepository: BeholdningRepository
@@ -57,7 +54,7 @@ internal class WorksheetProducerTest {
     }
 
     @Test
-    fun producePOPPWorksheet() {
+    fun `Produces POPP worksheet`() {
         val testBook = XSSFWorkbook(FileInputStream(File("test-worksheet.xlsx")))
         worksheetProducer.producePOPPWorksheet(1).apply {
             assertEquals(testBook.numberOfSheets, numberOfSheets)

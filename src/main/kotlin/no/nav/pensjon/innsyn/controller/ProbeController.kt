@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet
 
 @Unprotected
 @RestController
-class ProbeServlet : HttpServlet() {
+class ProbeController {
     @get:GetMapping("/isAlive")
     val isAlive: Nothing? = null
 

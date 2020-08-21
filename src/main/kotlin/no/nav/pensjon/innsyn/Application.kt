@@ -5,7 +5,6 @@ import org.springframework.boot.runApplication
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
-@EnableJpaRepositories
 @SpringBootApplication
 class Application {
     companion object {

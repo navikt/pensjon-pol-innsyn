@@ -5,5 +5,4 @@
 *.jar
 target/
 /.gradle/
-/test-worksheet.xlsx
 /build/

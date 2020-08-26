@@ -2,26 +2,25 @@ package no.nav.pensjon.innsyn.service.map
 
 import no.nav.pensjon.innsyn.domain.Domain
 import no.nav.pensjon.innsyn.domain.DomainContainer
-import org.apache.poi.ss.usermodel.*
+import org.apache.poi.ss.usermodel.CellStyle
+import org.apache.poi.ss.usermodel.IndexedColors.RED
+import org.apache.poi.ss.usermodel.Row
+import org.apache.poi.ss.usermodel.Sheet
+import org.apache.poi.ss.usermodel.Workbook
 
-/**
- * Adapted from
- * https://www.callicoder.com/java-write-excel-file-apache-poi/
- */
 class SheetFiller<T : Domain> internal constructor(
         private val container: DomainContainer<T>
 ) {
-    private val sheetName = container.entityName
-    private val columns = container.propertyNames
+
     fun populateSheet(pid: Int, workbook: Workbook) {
-        val sheet = workbook.createSheet(sheetName)
+        val sheet = workbook.createSheet(container.entityName)
         createHeaderRow(sheet, createHeaderCellStyle(workbook))
         createRows(pid, sheet, createDateCellStyle(workbook))
         fitColumnsToContentSize(sheet)
     }
 
     private fun createRows(pid: Int, sheet: Sheet, dateCellStyle: CellStyle) {
-        container.repository.findAllByPersonId(pid).forEachIndexed { i, e ->
+        container.source(pid).forEachIndexed { i, e ->
             container.rowFiller(RowFiller(sheet, dateCellStyle, i + 1), e)
         }
     }
@@ -30,7 +29,7 @@ class SheetFiller<T : Domain> internal constructor(
         createCells(sheet.createRow(0), cellStyle)
     }
 
-    private fun createCells(row: Row, style: CellStyle) = columns.forEachIndexed { i, o ->
+    private fun createCells(row: Row, style: CellStyle) = container.propertyNames.forEachIndexed { i, o ->
         row.createCell(i).apply {
             setCellValue(o)
             cellStyle = style
@@ -38,7 +37,7 @@ class SheetFiller<T : Domain> internal constructor(
     }
 
     private fun fitColumnsToContentSize(sheet: Sheet) {
-        (0..columns.size).forEach(sheet::autoSizeColumn)
+        (0..container.propertyNames.size).forEach(sheet::autoSizeColumn)
     }
 
     companion object {
@@ -54,7 +53,7 @@ class SheetFiller<T : Domain> internal constructor(
         private fun createHeaderFont(workbook: Workbook) = workbook.createFont().apply {
             bold = true
             fontHeightInPoints = 14
-            color = IndexedColors.RED.getIndex()
+            color = RED.getIndex()
         }
     }
 

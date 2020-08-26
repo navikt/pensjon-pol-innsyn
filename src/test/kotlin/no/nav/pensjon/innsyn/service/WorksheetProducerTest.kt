@@ -2,27 +2,27 @@ package no.nav.pensjon.innsyn.service
 
 import no.nav.pensjon.innsyn.domain.popp.PoppObjects
 import no.nav.pensjon.innsyn.domain.popp.container.*
+import no.nav.pensjon.innsyn.domain.tp.TpObjects
+import no.nav.pensjon.innsyn.domain.tp.container.ForholdContainer
+import no.nav.pensjon.innsyn.domain.tp.container.YtelseContainer
 import no.nav.pensjon.innsyn.repository.popp.*
-import org.apache.poi.xssf.usermodel.XSSFCell
+import no.nav.pensjon.innsyn.repository.tp.ForholdRepository
+import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
-import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
-import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.context.annotation.Profile
+import org.springframework.test.context.ActiveProfiles
 import java.io.File
 import java.io.FileInputStream
 
-@Profile("test")
-@TestInstance(PER_CLASS)
 @SpringBootTest(classes = [WorksheetProducer::class, BeholdningContainer::class, DagpengerContainer::class,
     ForstegangstjenesteContainer::class, FppAfpContainer::class, InntektContainer::class, OmsorgContainer::class,
-    OpptjeningContainer::class])
+    OpptjeningContainer::class, ForholdContainer::class, YtelseContainer::class])
+@ActiveProfiles("TP", "POPP")
 internal class WorksheetProducerTest {
     @MockBean
     lateinit var beholdningRepository: BeholdningRepository
@@ -38,24 +38,22 @@ internal class WorksheetProducerTest {
     lateinit var omsorgRepository: OmsorgRepository
     @MockBean
     lateinit var opptjeningRepository: OpptjeningRepository
+    @MockBean
+    lateinit var forholdRepository: ForholdRepository
 
     @Autowired
     private lateinit var worksheetProducer: WorksheetProducer
 
-    @BeforeAll
-    fun initMocks(){
-        Mockito.`when`(beholdningRepository.findAllByPersonId(1)).thenReturn(PoppObjects.beholdning)
-        Mockito.`when`(dagpengerRepository.findAllByPersonId(1)).thenReturn(PoppObjects.dagpenger)
-        Mockito.`when`(forstegangstjenesteRepository.findAllByPersonId(1)).thenReturn(PoppObjects.forstegangstjeneste)
-        Mockito.`when`(fppAfpRepository.findAllByPersonId(1)).thenReturn(PoppObjects.fppAfp)
-        Mockito.`when`(inntektRepository.findAllByPersonId(1)).thenReturn(PoppObjects.inntekt)
-        Mockito.`when`(omsorgRepository.findAllByPersonId(1)).thenReturn(PoppObjects.omsorg)
-        Mockito.`when`(opptjeningRepository.findAllByPersonId(1)).thenReturn(PoppObjects.opptjening)
-    }
-
     @Test
     fun `Produces POPP worksheet`() {
-        val testBook = XSSFWorkbook(FileInputStream(File("test-worksheet.xlsx")))
+        `when`(beholdningRepository.findAllByPersonId(1)).thenReturn(PoppObjects.beholdning)
+        `when`(dagpengerRepository.findAllByPersonId(1)).thenReturn(PoppObjects.dagpenger)
+        `when`(forstegangstjenesteRepository.findAllByPersonId(1)).thenReturn(PoppObjects.forstegangstjeneste)
+        `when`(fppAfpRepository.findAllByPersonId(1)).thenReturn(PoppObjects.fppAfp)
+        `when`(inntektRepository.findAllByPersonId(1)).thenReturn(PoppObjects.inntekt)
+        `when`(omsorgRepository.findAllByPersonId(1)).thenReturn(PoppObjects.omsorg)
+        `when`(opptjeningRepository.findAllByPersonId(1)).thenReturn(PoppObjects.opptjening)
+        val testBook = XSSFWorkbook(FileInputStream(File("popp-test-worksheet.xlsx")))
         worksheetProducer.producePOPPWorksheet(1).apply {
             assertEquals(testBook.numberOfSheets, numberOfSheets)
             this.forEachIndexed { si, sheet ->
@@ -65,7 +63,45 @@ internal class WorksheetProducerTest {
                     val testRow = testSheet.getRow(ri)
                     assertEquals(testRow.physicalNumberOfCells, row.physicalNumberOfCells)
                     row.forEachIndexed { ci, cell ->
-                        assertEquals(testRow.getCell(ci).rawValue, (cell as XSSFCell).rawValue)
+                        when(cell.cellType){
+                            CellType.NUMERIC -> assertEquals(
+                                    testRow.getCell(ci)?.numericCellValue,
+                                    cell.numericCellValue
+                            )
+                            CellType.STRING -> assertEquals(
+                                    testRow.getCell(ci)?.stringCellValue,
+                                    cell.stringCellValue
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `Produces TP worksheet`() {
+        `when`(forholdRepository.findAllByPersonId(1)).thenReturn(TpObjects.forhold)
+        val testBook = XSSFWorkbook(FileInputStream(File("tp-test-worksheet.xlsx")))
+        worksheetProducer.produceTPWorksheet(1).apply {
+            assertEquals(testBook.numberOfSheets, numberOfSheets)
+            this.forEachIndexed { si, sheet ->
+                val testSheet = testBook.getSheetAt(si)
+                assertEquals(testSheet.physicalNumberOfRows, sheet.physicalNumberOfRows)
+                sheet.forEachIndexed { ri, row ->
+                    val testRow = testSheet.getRow(ri)
+                    assertEquals(testRow.physicalNumberOfCells, row.physicalNumberOfCells)
+                    row.forEachIndexed { ci, cell ->
+                        when(cell.cellType){
+                            CellType.NUMERIC -> assertEquals(
+                                    testRow.getCell(ci)?.numericCellValue,
+                                    cell.numericCellValue
+                            )
+                            CellType.STRING -> assertEquals(
+                                    testRow.getCell(ci)?.stringCellValue,
+                                    cell.stringCellValue
+                            )
+                        }
                     }
                 }
             }

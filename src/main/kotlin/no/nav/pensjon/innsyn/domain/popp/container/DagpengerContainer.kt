@@ -2,9 +2,11 @@ package no.nav.pensjon.innsyn.domain.popp.container
 
 import no.nav.pensjon.innsyn.domain.popp.Dagpenger
 import no.nav.pensjon.innsyn.repository.popp.DagpengerRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile("POPP")
 class DagpengerContainer(repository: DagpengerRepository) : PoppContainer<Dagpenger>("Dagpenger",
         arrayOf(
                 "Ferietillegg",

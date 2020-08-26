@@ -22,7 +22,7 @@ class RowFiller internal constructor(sheet: Sheet, private val dateCellStyle: Ce
         createDateCell(cellIndex).setCellValue(value.run {
             dayOfMonth.toString().padStart(2, '0') +
                     ".${monthValue.toString().padStart(2, '0')}." +
-                    year.toString().takeLast(2)
+                    year.toString()
         })
     }
 

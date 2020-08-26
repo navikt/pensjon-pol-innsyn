@@ -8,4 +8,4 @@ abstract class PoppContainer<T: Domain>(
         entityName: String,
         propertyNames: Array<String>,
         repository: DomainRepository<T>
-) : DomainContainer<T>(entityName, propertyNames, repository)
+) : DomainContainer<T>(entityName, propertyNames, repository::findAllByPersonId)

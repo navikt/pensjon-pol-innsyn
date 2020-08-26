@@ -18,10 +18,10 @@ import javax.servlet.http.HttpServletResponse
 class InnsynController(val worksheetProducer: WorksheetProducer) {
 
     @GetMapping("/POPP")
-    fun getInnsyn(@RequestHeader("pid") pid: Int, response: HttpServletResponse) {
+    fun getPoppInnsyn(@RequestHeader("pid") pid: Int, response: HttpServletResponse) {
         response.apply {
             addHeader("Content-Description", "File Transfer")
-            addHeader(CONTENT_DISPOSITION, contentDisposition)
+            addHeader(CONTENT_DISPOSITION, contentDisposition("POPP"))
             addHeader("Content-Transfer-Encoding", "binary")
             addHeader("Connection", "Keep-Alive")
             contentType = CONTENT_TYPE_EXCEL
@@ -29,10 +29,21 @@ class InnsynController(val worksheetProducer: WorksheetProducer) {
         }
     }
 
+    @GetMapping("/TP")
+    fun getTpInnsyn(@RequestHeader("pid") pid: Int, response: HttpServletResponse) {
+        response.apply {
+            addHeader("Content-Description", "File Transfer")
+            addHeader(CONTENT_DISPOSITION, contentDisposition("TP"))
+            addHeader("Content-Transfer-Encoding", "binary")
+            addHeader("Connection", "Keep-Alive")
+            contentType = CONTENT_TYPE_EXCEL
+            SXSSFWorkbook(worksheetProducer.produceTPWorksheet(pid)).write(outputStream)
+        }
+    }
+
     companion object {
         const val CONTENT_TYPE_EXCEL = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         private val DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd")
-        private val contentDisposition: String
-            get() = "attachment; filename=POPP-${DATE_FORMAT.format(Date())}"
+        private fun contentDisposition(db: String) = "attachment; filename=$db-${DATE_FORMAT.format(Date())}"
     }
 }

@@ -2,9 +2,11 @@ package no.nav.pensjon.innsyn.domain.popp.container
 
 import no.nav.pensjon.innsyn.domain.popp.Beholdning
 import no.nav.pensjon.innsyn.repository.popp.BeholdningRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile("POPP")
 class BeholdningContainer(repository: BeholdningRepository) : PoppContainer<Beholdning>("Beholdning",
         arrayOf(
                 "Beholdning f.o.m.",

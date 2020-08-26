@@ -12,6 +12,7 @@ class DomainRowFiller<T : Domain> {
                     is Int -> sink.setCellValue(i, v.toDouble())
                     is LocalDate -> sink.setCellValue(i, v)
                     is Boolean -> sink.setCellValue(i, v)
+                    null -> sink.setCellValue(i, "")
                     else -> throw RuntimeException()
                 }
             }

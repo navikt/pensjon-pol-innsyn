@@ -1,1 +1,1 @@
-rootProject.name = "pol-innsyn"
+rootProject.name = "pol-innsyn-popp"

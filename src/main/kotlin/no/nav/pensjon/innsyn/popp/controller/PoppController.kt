@@ -2,6 +2,7 @@ package no.nav.pensjon.innsyn.popp.controller
 
 import no.nav.pensjon.innsyn.common.CONTENT_TYPE_EXCEL
 import no.nav.pensjon.innsyn.popp.service.PoppSheetProducer
+import no.nav.security.token.support.core.api.Protected
 import no.nav.security.token.support.core.api.Unprotected
 import org.apache.poi.xssf.streaming.SXSSFWorkbook
 import org.springframework.http.HttpHeaders
@@ -13,7 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.servlet.http.HttpServletResponse
 
-@Unprotected //@Protected
+@Protected
 @RestController
 @RequestMapping("/innsyn")
 class PoppController(private val worksheetProducer: PoppSheetProducer) {

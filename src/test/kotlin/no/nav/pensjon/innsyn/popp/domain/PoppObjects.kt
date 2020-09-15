@@ -13,9 +13,11 @@ object PoppObjects {
             id = "k_kilde_t",
             dekode = "Kildetype 1"
     )
+    
+    val person = Person(1, "01029312345")
 
     val beholdning = listOf(Beholdning(
-            personId = 1,
+            personId = person.personId,
             datoFom = LocalDate.of(2019, 11, 1),
             datoTom = LocalDate.of(2019, 12, 31),
             belop = 1.23,
@@ -70,7 +72,7 @@ object PoppObjects {
             )))
 
     val dagpenger = listOf(Dagpenger(
-            personId = 1,
+            personId = person.personId,
             ferietillegg = 1.23,
             barnetillegg = 2.34,
             dagpenger = 3.45,
@@ -89,7 +91,7 @@ object PoppObjects {
     ))
 
     val forstegangstjeneste = listOf(Forstegangstjeneste(
-            personId = 1,
+            personId = person.personId,
             tjenestestart = LocalDate.of(2019,12,31),
             dimittert = LocalDate.of(2019, 12, 31),
             rapportType = rapporttype1,
@@ -101,7 +103,7 @@ object PoppObjects {
     ))
 
     val fppAfp = listOf(FppAfp(
-            personId = 1,
+            personId = person.personId,
             fppAfpStatus = FppAfpStatus(
                     id = "1",
                     dekode = "FPP-AFP-status 1"
@@ -114,7 +116,7 @@ object PoppObjects {
     ))
 
     val inntekt = listOf(Inntekt(
-            personId = 1,
+            personId = person.personId,
             inntektType = InntektType(
                     id = "k_inntekt_t",
                     dekode = "Inntektstype 1"
@@ -131,7 +133,7 @@ object PoppObjects {
 
     val omsorg = listOf(
             Omsorg(
-                    personId = 1,
+                    personId = person.personId,
                     ar = 2019,
                     kildeType = kildetype1,
                     omsorgType = OmsorgType("k_omsorg_t", "Omsorgstype 1"),
@@ -148,7 +150,7 @@ object PoppObjects {
     )
 
     val opptjening = listOf(Opptjening(
-            personId = 1,
+            personId = person.personId,
             opptjeningType =  OpptjeningType("k_opptjn_t", "Opptjeningstype 1"),
             opptjeningStatus = OpptjeningStatus("k_opptjn_status", "Opptjeningsstatus 1"),
             opptjeningsar = 2019,

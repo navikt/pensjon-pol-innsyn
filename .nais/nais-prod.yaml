@@ -19,6 +19,8 @@ spec:
     paths:
       - mountPath: /secrets/oracle/popp
         kvPath: oracle/data/prod/creds/popp-user
+      - mountPath: /secrets/oracle/config
+        kvPath: oracle/data/dev/config/popp_p
   replicas:
     min: 1
     max: 1

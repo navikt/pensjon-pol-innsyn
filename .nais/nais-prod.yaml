@@ -9,7 +9,7 @@ spec:
   image: {{ image }}
   port: 8080
   ingresses:
-    - https://pensjon-pol-innsyn-popp.nais.preprod.local
+    - https://pensjon-pol-innsyn-popp.nais.adeo.no
   liveness:
     path: actuator/health/liveness
   readiness:
@@ -18,9 +18,9 @@ spec:
     enabled: true
     paths:
       - mountPath: /secrets/oracle/popp
-        kvPath: oracle/data/dev/creds/popp_q0-user
+        kvPath: oracle/data/prod/creds/popp-user
       - mountPath: /secrets/oracle/config
-        kvPath: oracle/data/dev/config/popp_q0
+        kvPath: oracle/data/dev/config/popp_p
   replicas:
     min: 1
     max: 1

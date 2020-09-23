@@ -10,6 +10,3 @@ management:
 no.nav.security.jwt.issuer.sts:
   discoveryUrl: http://security-token-service/.well-known/openid-configuration
   accepted_audience: preprod.local,srvpensjon
-no.nav.security.jwt.issuer.sts:
-  discoveryUrl: http://security-token-service/.well-known/openid-configuration
-  accepted_audience: preprod.local,srvpensjon

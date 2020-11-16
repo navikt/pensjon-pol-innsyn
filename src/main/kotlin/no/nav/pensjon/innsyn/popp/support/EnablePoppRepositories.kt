@@ -1,3 +1,5 @@
+@file:Suppress("unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused")
+
 package no.nav.pensjon.innsyn.popp.support
 
 import org.springframework.context.annotation.ComponentScan

@@ -2,7 +2,6 @@ package no.nav.pensjon.innsyn.popp.domain.container
 
 import no.nav.pensjon.innsyn.popp.domain.Opptjening
 import no.nav.pensjon.innsyn.popp.repository.OpptjeningRepository
-import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component

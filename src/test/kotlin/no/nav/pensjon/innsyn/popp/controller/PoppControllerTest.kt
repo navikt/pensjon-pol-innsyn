@@ -9,6 +9,7 @@ import no.nav.pensjon.innsyn.popp.service.PoppSheetProducer
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.dao.DataIntegrityViolationException
@@ -19,6 +20,7 @@ import java.io.File
 import java.io.FileInputStream
 
 @AutoConfigureDataJpa
+@AutoConfigureTestDatabase
 @WebMvcTest(PoppController::class)
 internal class PoppControllerTest{
     @Autowired

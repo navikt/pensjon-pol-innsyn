@@ -14,7 +14,7 @@ data class Beholdning(
         @Column(name = "DATO_FOM")
         val datoFom: LocalDate,
         @Column(name = "DATO_TOM")
-        val datoTom: LocalDate,
+        val datoTom: LocalDate?,
         @Column(name = "BELOP")
         val belop: Double,
         @Column(name = "BEH_GRLAG")
@@ -31,22 +31,22 @@ data class Beholdning(
         private val beholdningStatus: BeholdningStatus,
         @ManyToOne
         @JoinColumn(name = "INNTEKT_OPPTJ_ID")
-        private val inntektOpptj: InntektOpptj,
+        private val inntektOpptj: InntektOpptj?,
         @ManyToOne
         @JoinColumn(name = "F_TJEN_OPPTJ_ID")
-        private val fTjenOpptj: FTjenOpptj,
+        private val fTjenOpptj: FTjenOpptj?,
         @ManyToOne
         @JoinColumn(name = "DAGPENGER_OPPTJ_ID")
-        var dagpengerOpptj: DagpengerOpptj,
+        private val dagpengerOpptj: DagpengerOpptj?,
         @ManyToOne
         @JoinColumn(name = "OMSORG_OPPTJ_ID")
-        var omsorgOpptj: OmsorgOpptj,
+        private val omsorgOpptj: OmsorgOpptj?,
         @ManyToOne
         @JoinColumn(name = "UFORE_OPPTJ_ID")
-        var uforeOpptj: UforeOpptj,
+        private val uforeOpptj: UforeOpptj?,
         @ManyToOne
         @JoinColumn(name = "LONNSVEKST_REG_ID")
-        var lonnsvekstReg: LonnsvekstReg
+        private val lonnsvekstReg: LonnsvekstReg?
 ) : Domain {
     @get:Transient
     val beholdningstype
@@ -58,83 +58,83 @@ data class Beholdning(
 
     @get:Transient
     val inntektsar
-        get() = inntektOpptj.ar
+        get() = inntektOpptj?.ar
 
     @get:Transient
     val inntektsgrunnlag
-        get() = inntektOpptj.belop
+        get() = inntektOpptj?.belop
 
     @get:Transient
     val forstegangstjenesteAr
-        get() = fTjenOpptj.ar
+        get() = fTjenOpptj?.ar
 
     @get:Transient
     val ordinareDagpenger
-        get() = dagpengerOpptj.belopOrdinar
+        get() = dagpengerOpptj?.belopOrdinar
 
     @get:Transient
     val dagpengerAr
-        get() = dagpengerOpptj.ar
+        get() = dagpengerOpptj?.ar
 
     @get:Transient
     val dagpengerFisker
-        get() = dagpengerOpptj.belopFiskere
+        get() = dagpengerOpptj?.belopFiskere
 
     @get:Transient
     val omsorgAr
-        get() = omsorgOpptj.ar
+        get() = omsorgOpptj?.ar
 
     @get:Transient
     val omsorgBelop
-        get() = omsorgOpptj.belop
+        get() = omsorgOpptj?.belop
 
     @get:Transient
     val omsorgInnskudd
-        get() = omsorgOpptj.inskudd
+        get() = omsorgOpptj?.inskudd
 
     @get:Transient
     val uforeBelop
-        get() = uforeOpptj.belop
+        get() = uforeOpptj?.belop
 
     @get:Transient
     val uforeAr
-        get() = uforeOpptj.ar
+        get() = uforeOpptj?.ar
 
     @get:Transient
     val uforegrad
-        get() = uforeOpptj.ufg
+        get() = uforeOpptj?.ufg
 
     @get:Transient
     val uforeYrkesskadegrad
-        get() = uforeOpptj.yug
+        get() = uforeOpptj?.yug
 
     @get:Transient
     val uforeAntattInntektYrke
-        get() = uforeOpptj.antattInntektYrke
+        get() = uforeOpptj?.antattInntektYrke
 
     @get:Transient
     val uforeYrkesskade
-        get() = uforeOpptj.yrkesskade
+        get() = uforeOpptj?.yrkesskade
 
     @get:Transient
     val uforeUforetrygd
-        get() = uforeOpptj.uforetrygd
+        get() = uforeOpptj?.uforetrygd
 
     @get:Transient
     val uforeUforeAr
-        get() = uforeOpptj.uforear
+        get() = uforeOpptj?.uforear
 
     @get:Transient
     val uforeAntattInntekt
-        get() = uforeOpptj.antattInntekt
+        get() = uforeOpptj?.antattInntekt
 
     @get:Transient
     val reguleringBelop
-        get() = lonnsvekstReg.belop
+        get() = lonnsvekstReg?.belop
 
     @get:Transient
     val reguleringDato
-        get() = lonnsvekstReg.dato
+        get() = lonnsvekstReg?.dato
 
     @get:Transient
     override val fields

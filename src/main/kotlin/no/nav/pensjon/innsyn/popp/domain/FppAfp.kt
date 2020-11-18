@@ -24,7 +24,7 @@ data class FppAfp(
         @Column(name = "VIRK_FOM")
         val gjelderFom: LocalDate,
         @Column(name = "VIRK_TOM")
-        val gjelderTom: LocalDate,
+        val gjelderTom: LocalDate?,
         @Column(name = "AFP_PENSJONSGRAD")
         val afpPensjonsgrad: Double,
         @Column(name = "AFP_TYPE")

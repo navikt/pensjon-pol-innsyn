@@ -18,11 +18,11 @@ data class Opptjening(
         @Column(name = "OPPTJN_AR")
         val opptjeningsar: Int,
         @Column(name = "PGI_ANVENDT")
-        val pensjonsgivendeInntekt: Double,
+        val pensjonsgivendeInntekt: Double?,
         @Column(name = "POENG")
         val poeng: Double,
         @Column(name = "MAX_UFOREGRAD")
-        val uforegrad: Double,
+        val uforegrad: Double?,
         @ManyToOne
         @JoinColumn(name = "K_OPPTJN_T")
         private val opptjeningType: OpptjeningType,

@@ -20,7 +20,7 @@ data class Dagpenger(
         @Column(name = "DAGPENGER")
         val dagpenger: Double,
         @Column(name = "UAVKORTET_DP_GRLAG")
-        val uavkortetGrunnlag: Double,
+        val uavkortetGrunnlag: Double?,
         @Column(name = "AR")
         val arDagpengerUtbetalt: Int,
         @ManyToOne

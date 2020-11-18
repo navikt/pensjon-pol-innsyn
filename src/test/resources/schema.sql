@@ -2,13 +2,14 @@
 -- ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY.MM.DD';
 
 CREATE TABLE T_BEHOLDNING(
+    beholdning_id      INTEGER PRIMARY KEY,
     belop              NUMERIC,
     dato_fom           date,
     dato_tom           date,
     k_beholdning_t     VARCHAR(20),
     k_beholdning_s     VARCHAR(20),
     k_restp_beh_arsak  VARCHAR(20),
-    person_id          INTEGER PRIMARY KEY ,
+    person_id          INTEGER,
     beh_grlag          NUMERIC,
     beh_grlag_avkortet NUMERIC,
     beh_innskudd       NUMERIC,
@@ -21,11 +22,12 @@ CREATE TABLE T_BEHOLDNING(
 );
 
 CREATE TABLE T_DAGPENGER(
+    dagpenger_id       INTEGER PRIMARY KEY,
     ferietillegg       NUMERIC,
     barnetillegg       NUMERIC,
     dagpenger          NUMERIC,
     uavkortet_dp_grlag NUMERIC,
-    person_id          INTEGER PRIMARY KEY,
+    person_id          INTEGER,
     ar                 INTEGER,
     k_dagpenger_t      VARCHAR(20),
     k_dagpenger_s      VARCHAR(20),
@@ -46,7 +48,8 @@ CREATE TABLE T_F_TJEN_OPPTJ(
 );
 
 CREATE TABLE T_F_TJEN_TOT(
-    person_id          INTEGER PRIMARY KEY,
+    f_tjen_tot_id      INTEGER PRIMARY KEY,
+    person_id          INTEGER,
     dato_tjenestestart date,
     dato_dimittering   date,
     k_kilde_t          VARCHAR(20),
@@ -55,7 +58,8 @@ CREATE TABLE T_F_TJEN_TOT(
 );
 
 CREATE TABLE T_FPP_AFP(
-    person_id        INTEGER PRIMARY KEY,
+    fpp_afp_id       INTEGER PRIMARY KEY,
+    person_id        INTEGER,
     virk_fom         date,
     virk_tom         date,
     afp_fpp          NUMERIC,
@@ -164,7 +168,8 @@ CREATE TABLE T_LONN_VEKST_REG(
 );
 
 CREATE TABLE T_OMSORG(
-    person_id  INTEGER PRIMARY KEY,
+    omsorg_id  INTEGER PRIMARY KEY,
+    person_id  INTEGER,
     ar         INTEGER,
     k_omsorg_t VARCHAR(20),
     k_omsorg_s VARCHAR(20),
@@ -179,7 +184,8 @@ CREATE TABLE T_OMSORG_OPPTJ(
 );
 
 CREATE TABLE T_OPPTJN(
-    person_id_opptjn INTEGER PRIMARY KEY,
+    opptjn_id        INTEGER PRIMARY KEY,
+    person_id_opptjn INTEGER,
     opptjn_ar        INTEGER,
     pgi_anvendt      NUMERIC,
     poeng            NUMERIC,

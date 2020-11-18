@@ -11,6 +11,8 @@ import javax.persistence.*
 @Table(name = "T_DAGPENGER")
 data class Dagpenger(
         @Id
+        @Column(name = "DAGPENGER_ID")
+        val id: Int,
         @Column(name = "PERSON_ID")
         val personId: Int,
         @Column(name = "FERIETILLEGG")

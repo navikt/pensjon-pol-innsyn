@@ -14,6 +14,8 @@ import javax.persistence.*
 @SecondaryTable(name = "T_K_FPP_AFP_S", pkJoinColumns = [PrimaryKeyJoinColumn(name = "K_FPP_AFP_S")])
 data class FppAfp(
         @Id
+        @Column(name = "FPP_AFP_ID")
+        val id: Int,
         @Column(name = "PERSON_ID")
         private val personId: Int,
         @ManyToOne

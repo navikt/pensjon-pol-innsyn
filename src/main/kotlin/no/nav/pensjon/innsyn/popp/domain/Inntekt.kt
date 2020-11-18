@@ -11,6 +11,8 @@ import javax.persistence.*
 @Table(name = "T_INNTEKT")
 data class Inntekt(
         @Id
+        @Column(name = "INNTEKT_ID")
+        val id: Int,
         @Column(name = "PERSON_ID")
         var personId: Int,
         @ManyToOne

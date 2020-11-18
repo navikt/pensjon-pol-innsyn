@@ -9,6 +9,8 @@ import javax.persistence.*
 @Table(name = "T_BEHOLDNING")
 data class Beholdning(
         @Id
+        @Column(name = "BEHOLDNING_ID")
+        val id: Int,
         @Column(name = "PERSON_ID")
         private val personId: Int,
         @Column(name = "DATO_FOM")

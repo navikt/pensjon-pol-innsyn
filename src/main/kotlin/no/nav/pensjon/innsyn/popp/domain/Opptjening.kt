@@ -13,6 +13,8 @@ import javax.persistence.*
 )
 data class Opptjening(
         @Id
+        @Column(name = "OPPTJN_ID")
+        private val id: Int,
         @Column(name = "PERSON_ID_OPPTJN")
         private val personId: Int,
         @Column(name = "OPPTJN_AR")

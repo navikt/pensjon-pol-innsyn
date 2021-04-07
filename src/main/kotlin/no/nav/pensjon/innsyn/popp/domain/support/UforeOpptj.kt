@@ -18,11 +18,11 @@ data class UforeOpptj(
         @Column(name = "UFG")
         val ufg: Double,
         @Column(name = "ANTATT_INNTEKT")
-        val antattInntekt: Double,
+        val antattInntekt: Double?,
         @Column(name = "YUG")
         val yug: Double,
         @Column(name = "ANTATT_INNTEKT_YRKE")
-        val antattInntektYrke: Double,
+        val antattInntektYrke: Double?,
         @Column(name = "YRKESSKADE", columnDefinition = "INT(1)")
         val yrkesskade: Boolean,
         @Column(name = "UFORETRYGD", columnDefinition = "INT(1)")

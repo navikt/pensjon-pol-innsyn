@@ -20,7 +20,7 @@ data class UforeOpptj(
         @Column(name = "ANTATT_INNTEKT")
         val antattInntekt: Double?,
         @Column(name = "YUG")
-        val yug: Double,
+        val yug: Double?,
         @Column(name = "ANTATT_INNTEKT_YRKE")
         val antattInntektYrke: Double?,
         @Column(name = "YRKESSKADE", columnDefinition = "INT(1)")

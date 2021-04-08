@@ -12,9 +12,9 @@ data class DagpengerOpptj(
         @Column(name = "DAGPENGER_OPPTJ_ID")
         val id: Int,
         @Column(name = "BELOP_ORDINAR")
-        val belopOrdinar: Double,
+        val belopOrdinar: Double?,
         @Column(name = "AR")
         val ar: Int,
         @Column(name = "BELOP_FISKERE")
-        val belopFiskere: Double
+        val belopFiskere: Double?
 )

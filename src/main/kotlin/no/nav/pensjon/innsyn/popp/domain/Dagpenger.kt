@@ -16,9 +16,9 @@ data class Dagpenger(
         @Column(name = "PERSON_ID")
         val personId: Int,
         @Column(name = "FERIETILLEGG")
-        val ferietillegg: Double,
+        val ferietillegg: Double?,
         @Column(name = "BARNETILLEGG")
-        val barnetillegg: Double,
+        val barnetillegg: Double?,
         @Column(name = "DAGPENGER")
         val dagpenger: Double,
         @Column(name = "UAVKORTET_DP_GRLAG")

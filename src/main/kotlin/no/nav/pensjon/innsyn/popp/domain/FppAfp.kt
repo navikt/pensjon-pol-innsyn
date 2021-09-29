@@ -28,7 +28,7 @@ data class FppAfp(
         @Column(name = "VIRK_TOM")
         val gjelderTom: LocalDate?,
         @Column(name = "AFP_PENSJONSGRAD")
-        val afpPensjonsgrad: Double,
+        val afpPensjonsgrad: Double?,
         @Column(name = "AFP_TYPE")
         val afpType: String
 ) : Domain {

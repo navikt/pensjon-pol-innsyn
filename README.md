@@ -5,15 +5,18 @@ Innsyn oppnås ved å gjøre et uttrekk av pensjonsdata og overføre dataene til
 
 # Komme i gang
 
-TBD
+Request sendes til path `\innsyn`, med fødselsnummer i `fnr` header.  
+For autentisering brukes STS token.
+
+Svaret lagres som en fil i .xlsx format.
 
 # Henvendelser
 
 Spørsmål knyttet til koden eller prosjektet kan rettes mot:
 
-* Espen Gjøstøl
+* Mathias Sand Jahren
 
-E-post: fornavn.etternavn@nav.no
+E-post: mathias.sand.jahren@nav.no
 
 ## For NAV-ansatte
 

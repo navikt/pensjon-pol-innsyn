@@ -18,7 +18,7 @@ data class Forstegangstjeneste(
         @Column(name = "DATO_TJENESTESTART")
         val tjenestestart: LocalDate,
         @Column(name = "DATO_DIMITTERING")
-        val dimittert: LocalDate,
+        val dimittert: LocalDate?,
         @ManyToOne
         @JoinColumn(name = "K_RAPPORT_T")
         private val rapportType: RapportType,

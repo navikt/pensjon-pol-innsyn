@@ -22,9 +22,9 @@ data class Beholdning(
         @Column(name = "BEH_GRLAG")
         val grunnlag: Double,
         @Column(name = "BEH_GRLAG_AVKORTET")
-        val grunnlagAvkortet: Double,
+        val grunnlagAvkortet: Double?,
         @Column(name = "BEH_INNSKUDD")
-        val innskudd: Double,
+        val innskudd: Double?,
         @ManyToOne
         @JoinColumn(name = "K_BEHOLDNING_T")
         private val beholdningType: BeholdningType,

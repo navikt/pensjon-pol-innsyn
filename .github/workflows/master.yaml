@@ -39,7 +39,7 @@ jobs:
           CLUSTER: dev-fss
           RESOURCE: .nais/nais-dev.yaml
           IMAGE: docker.pkg.github.com/navikt/pensjon-pol-innsyn/pensjon-pol-innsyn-popp:${{ env.TAG }}
-          TEAM: pensjonsamhandling
+          TEAM: pensjonopptjening
 
       # Deploy to prod-fss
       - name: Deploy to prod-fss
@@ -49,4 +49,4 @@ jobs:
           CLUSTER: prod-fss
           RESOURCE: .nais/nais-prod.yaml
           IMAGE: docker.pkg.github.com/navikt/pensjon-pol-innsyn/pensjon-pol-innsyn-popp:${{ env.TAG }}
-          TEAM: pensjonsamhandling
+          TEAM: pensjonopptjening

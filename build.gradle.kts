@@ -11,6 +11,12 @@ plugins {
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -43,7 +49,7 @@ noArg {
 
 tasks {
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "15"
+        kotlinOptions.jvmTarget = "17"
     }
     test {
         useJUnitPlatform()

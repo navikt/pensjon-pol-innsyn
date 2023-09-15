@@ -45,7 +45,7 @@ jobs:
     # Autobuild attempts to build any compiled languages (C/C++, C#, Go, Java, or Swift).
     # If this step fails, then you should remove it and run the build manually (see below)
     - name: Build
-      run: ./gradlew --info --stacktrace test build
+      run: ./gradlew build
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

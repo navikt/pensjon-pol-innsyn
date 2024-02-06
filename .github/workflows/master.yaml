@@ -6,6 +6,9 @@ on:
 
 jobs:
   build_and_release:
+    permissions:
+      contents: "read"
+      id-token: "write"  
     name: Build and release
     runs-on: ubuntu-latest
     steps:
@@ -33,9 +36,8 @@ jobs:
 
       # Deploy to dev-fss
       - name: Deploy to dev-fss
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-fss
           RESOURCE: .nais/nais-dev.yaml
           IMAGE: docker.pkg.github.com/navikt/pensjon-pol-innsyn/pensjon-pol-innsyn-popp:${{ env.TAG }}
@@ -43,9 +45,8 @@ jobs:
 
       # Deploy to prod-fss
       - name: Deploy to prod-fss
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-fss
           RESOURCE: .nais/nais-prod.yaml
           IMAGE: docker.pkg.github.com/navikt/pensjon-pol-innsyn/pensjon-pol-innsyn-popp:${{ env.TAG }}

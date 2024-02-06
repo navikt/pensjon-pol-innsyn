@@ -36,7 +36,7 @@ internal class PoppInnsynTest {
                 setBearerAuth(JwtTokenGenerator.signedJWTAsString(null))
             }
         }.andExpect {
-            status { isOk }
+            status { isOk() }
             content { contentType(CONTENT_TYPE_EXCEL) }
         }.andReturn().response.run {
             XSSFWorkbook(ByteArrayInputStream(contentAsByteArray))
@@ -50,7 +50,7 @@ internal class PoppInnsynTest {
                 this["fnr"] = person.fnr
             }
         }.andExpect {
-            status { isUnauthorized }
+            status { isUnauthorized() }
         }
     }
 
@@ -62,7 +62,7 @@ internal class PoppInnsynTest {
                 setBearerAuth(JwtTokenGenerator.signedJWTAsString(null))
             }
         }.andExpect {
-            status { isNotFound }
+            status { isNotFound() }
             content { string("Person not found. Verify FNR is correct.") }
         }
     }

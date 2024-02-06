@@ -37,7 +37,7 @@ internal class PoppControllerTest{
                 this["fnr"] = "0"
             }
         }.andExpect {
-            status { isOk }
+            status { isOk() }
             content { contentType(CONTENT_TYPE_EXCEL) }
         }.andReturn().response.run {
             XSSFWorkbook(ByteArrayInputStream(contentAsByteArray))
@@ -52,7 +52,7 @@ internal class PoppControllerTest{
                 this["fnr"] = "1"
             }
         }.andExpect {
-            status { isNotFound }
+            status { isNotFound() }
             content { string("Person not found. Verify FNR is correct.") }
         }
     }
@@ -65,7 +65,7 @@ internal class PoppControllerTest{
                 this["fnr"] = "2"
             }
         }.andExpect {
-            status { isInternalServerError }
+            status { isInternalServerError() }
             content { string("Database error.") }
         }
     }

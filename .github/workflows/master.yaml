@@ -2,7 +2,8 @@ name: Release to GitHub Package Registry
 
 on:
   push:
-    branches: master
+    branches:
+      - 'master'
 
 jobs:
   build_and_release:
@@ -10,7 +11,7 @@ jobs:
       contents: "read"
       id-token: "write"  
     name: 'Build and release'
-    runs-on: ubuntu-latest
+    runs-on: 'ubuntu-latest'
     steps:
       - name: 'Checkout repository'
         uses: actions/checkout@v4
@@ -18,8 +19,9 @@ jobs:
       - name: 'Java'
         uses: actions/setup-java@v4
         with:
-          java-version: '15.x'
+          java-version: '21'
           distribution: 'temurin'
+          cache: 'gradle'
 
       - name: 'Build'
         run: gradle clean build
